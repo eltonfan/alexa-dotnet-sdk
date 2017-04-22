@@ -7,7 +7,7 @@ namespace Alexa.ConnectedHome
     /// <summary>
     /// The payload for a skill adapter directive.
     /// </summary>
-    public class MessagePayload
+    public abstract class MessagePayload
     {
     }
 }

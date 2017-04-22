@@ -8,4 +8,9 @@
     <Copyright>chuangen@live.com; http://chuangen.name</Copyright>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Common.Logging" Version="3.4.0-Beta2" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+  </ItemGroup>
+
 </Project>
