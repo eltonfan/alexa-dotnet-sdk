@@ -1,0 +1,24 @@
+﻿{
+  "header": {
+    "messageId": "8fab15be-c75a-4d49-b9c3-2dacc24b4c23",
+    "name": "DecrementTargetTemperatureConfirmation",
+    "namespace": "Alexa.ConnectedHome.Control",
+    "payloadVersion": "2"
+  },
+  "payload": {
+    "previousState": {
+      "mode": {
+        "value": "AUTO"
+      },
+      "targetTemperature": {
+        "value": 21.0
+      }
+    },
+    "targetTemperature": {
+      "value": 27.0
+    },
+    "temperatureMode": {
+      "value": "AUTO"
+    }
+  }
+}

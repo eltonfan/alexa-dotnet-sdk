@@ -1,0 +1,23 @@
+﻿{
+  "header": {
+    "messageId": "b6602211-b4b3-4960-b063-f7e3967c00c4",
+    "name": "SetTargetTemperatureRequest",
+    "namespace": "Alexa.ConnectedHome.Control",
+    "payloadVersion": "2"
+  },
+  "payload": {
+    "accessToken": "[OAuth token here]",
+    "appliance": {
+      "additionalApplianceDetails": {
+        "extraDetail1": "optionalDetailForSkillAdapterToReferenceThisDevice",
+        "extraDetail2": "There can be multiple entries",
+        "extraDetail3": "but they should only be used for reference purposes.",
+        "extraDetail4": "This is not a suitable place to maintain current device state"
+      },
+      "applianceId": "[Device ID for Living Room Thermostat]"
+    },
+    "targetTemperature": {
+      "value": 25.0
+    }
+  }
+}
