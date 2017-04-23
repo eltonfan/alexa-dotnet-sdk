@@ -15,6 +15,14 @@ namespace Alexa.ConnectedHome
     {
         [JsonProperty("value")]
         public object Value { get; set; }
+
+        public ControlParameter()
+        { }
+
+        public ControlParameter(object value)
+        {
+            this.Value = value;
+        }
     }
 
 

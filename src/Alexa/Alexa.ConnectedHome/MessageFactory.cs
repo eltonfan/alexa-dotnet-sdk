@@ -122,6 +122,11 @@ namespace Alexa.ConnectedHome
         protected Message ParseMessage(string jsonString)
         {
             JObject obj = JObject.Parse(jsonString);
+
+            return ParseMessage(obj);
+        }
+        protected Message ParseMessage(JObject obj)
+        {
             MessageHeader header = obj["header"].ToObject<MessageHeader>();
             string fullName = header.FullName;
             if (!dicTypes.ContainsKey(fullName))
@@ -139,7 +144,7 @@ namespace Alexa.ConnectedHome
             return message;
         }
 
-        protected string FormatMessage(MessagePayload payload)
+        protected Message CreateMessage(MessagePayload payload)
         {
             Type type = payload.GetType();
             Message message = new Message
@@ -154,6 +159,11 @@ namespace Alexa.ConnectedHome
                 Payload = payload,
             };
 
+            return message;
+        }
+        protected string FormatMessage(MessagePayload payload)
+        {
+            Message message = CreateMessage(payload);
             return JsonConvert.SerializeObject(message);
         }
 
@@ -161,7 +171,14 @@ namespace Alexa.ConnectedHome
         {
             return Default.ParseMessage(jsonString);
         }
-
+        public static Message Parse(JObject obj)
+        {
+            return Default.ParseMessage(obj);
+        }
+        public static Message Create(MessagePayload payload)
+        {
+            return Default.CreateMessage(payload);
+        }
         public static string Format(MessagePayload payload)
         {
             return Default.FormatMessage(payload);

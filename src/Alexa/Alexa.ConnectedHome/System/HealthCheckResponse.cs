@@ -1,4 +1,6 @@
-﻿namespace Alexa.ConnectedHome.System
+﻿using Newtonsoft.Json;
+
+namespace Alexa.ConnectedHome.System
 {
     /// <summary>
     /// Indicates a successful or failed health check. The expected response to a HealthCheckRequest, and sent from the skill adapter to the Smart Home Skill API.
@@ -8,10 +10,19 @@
         /// <summary>
         /// Indicates whether the skill adapter is online and receiving requests.
         /// </summary>
-        public bool isHealthy { get; set; }
+        [JsonProperty("isHealthy")]
+        public bool IsHealthy { get; set; }
         /// <summary>
         /// Non-formatted description of skill adapter state.
         /// </summary>
-        public string description { get; set; }
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        public HealthCheckResponse() { }
+        public HealthCheckResponse(bool isHealthy, string description)
+        {
+            this.IsHealthy = isHealthy;
+            this.Description = description;
+        }
     }
 }

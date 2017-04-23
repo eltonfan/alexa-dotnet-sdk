@@ -1,4 +1,6 @@
-﻿namespace Alexa.ConnectedHome.System
+﻿using Newtonsoft.Json;
+
+namespace Alexa.ConnectedHome.System
 {
     /// <summary>
     /// Requests the availability of the skill adapter. These are periodically sent by the Smart Home Skill API to the skill adapter.
@@ -10,6 +12,7 @@
         /// January 1, 1970, which indicates
         /// when the health check was sent.
         /// </summary>
-        public string initiationTimestamp { get; set; }
+        [JsonProperty("initiationTimestamp")]
+        public string InitiationTimestamp { get; set; }
     }
 }
