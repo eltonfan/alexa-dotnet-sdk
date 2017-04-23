@@ -1,35 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace Alexa.ConnectedHome.Control
 {
-    public class DecrementPercentageRequest : MessagePayload
+    public class DecrementPercentageRequest : ControlRequest
     {
-        public ControlParameter deltaPercentage { get; set; }
+        [JsonProperty("deltaPercentage")]
+        public ControlParameter DeltaPercentage { get; set; }
     }
-    /*
-     * 
-      {
-        "header": {
-            "messageId": "7048c18d-4141-4871-bf0e-da3e54dee3f7",
-            "name": " DecrementPercentageRequest",
-            "namespace": "Alexa.ConnectedHome.Control",
-            "payloadVersion": "2"
-        },
-        "payload": {
-            "accessToken": "[OAuth Token here]",
-            "appliance": {
-                "additionalApplianceDetails": {},
-                "applianceId": "[Device ID for Cinema Room Light]"
-            },
-            "deltaPercentage": {
-                "value": 20.0
-            }
-        }
-    }
-
-     */
 }

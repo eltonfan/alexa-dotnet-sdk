@@ -1,0 +1,9 @@
+﻿{
+  "header": {
+    "messageId": "a0c739b9-4c12-48c9-88c7-fc2e1f051b0b",
+    "name": "IncrementPercentageConfirmation",
+    "namespace": "Alexa.ConnectedHome.Control",
+    "payloadVersion": "2"
+  },
+  "payload": {}
+}

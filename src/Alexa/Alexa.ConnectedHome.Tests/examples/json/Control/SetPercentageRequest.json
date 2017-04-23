@@ -1,0 +1,18 @@
+﻿{
+  "header": {
+    "messageId": "95872301-4ff6-4146-b3a4-ae84c760c13e",
+    "name": "SetPercentageRequest",
+    "namespace": "Alexa.ConnectedHome.Control",
+    "payloadVersion": "2"
+  },
+  "payload": {
+    "accessToken": "[OAuth token here]",
+    "appliance": {
+      "additionalApplianceDetails": {},
+      "applianceId": "[Device ID for Cinema Room Light]"
+    },
+    "percentageState": {
+      "value": 50.0
+    }
+  }
+}

@@ -47,11 +47,12 @@ namespace Alexa.ConnectedHome.Tests
         {
             string jsonString = ReadExampleJsonString(payloadType);
             Message message = MessageFactory.Parse(jsonString);
+            Assert.IsNotNull(message, "Failed to parse message '{0}'.", payloadType.FullName);
             Assert.AreEqual(message.Payload.GetType(), payloadType);
 
             string actual = MessageFactory.Format(message);
             Assert.IsTrue(JToken.DeepEquals(JObject.Parse(jsonString), JObject.Parse(actual)), 
-                string.Format("Message '{0}' json Data is incorrect.", payloadType.FullName));
+                "Message '{0}' json Data is incorrect.", payloadType.FullName);
         }
 
         void TestMessages(params Type[] payloadTypes)
@@ -89,6 +90,18 @@ namespace Alexa.ConnectedHome.Tests
                 typeof(Control.TurnOnConfirmation),
                 typeof(Control.TurnOffRequest),
                 typeof(Control.TurnOffConfirmation));
+        }
+
+        [TestMethod]
+        public void TestPercentageMessages()
+        {
+            //Percentage Messages
+            TestMessages(typeof(Control.SetPercentageRequest));
+            TestMessages(typeof(Control.SetPercentageConfirmation));
+            TestMessages(typeof(Control.IncrementPercentageRequest));
+            TestMessages(typeof(Control.IncrementPercentageConfirmation));
+            TestMessages(typeof(Control.DecrementPercentageRequest));
+            TestMessages(typeof(Control.DecrementPercentageConfirmation));
         }
 
         //[TestMethod]
