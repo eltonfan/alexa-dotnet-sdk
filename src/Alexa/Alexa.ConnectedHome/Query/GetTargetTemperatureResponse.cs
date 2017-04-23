@@ -3,14 +3,6 @@ using System;
 
 namespace Alexa.ConnectedHome.Query
 {
-    public class TemperatureMode
-    {
-        [JsonProperty("value")]
-        public object Value { get; set; }
-        [JsonProperty("friendlyName")]
-        public string FriendlyName { get; set; }
-    }
-
     public class GetTargetTemperatureResponse : MessagePayload
     {
         [JsonProperty("targetTemperature")]
@@ -18,6 +10,6 @@ namespace Alexa.ConnectedHome.Query
         [JsonProperty("applianceResponseTimestamp")]
         public DateTime ApplianceResponseTimestamp { get; set; }
         [JsonProperty("temperatureMode")]
-        public TemperatureMode TemperatureMode { get; set; }
+        public TemperatureModeData TemperatureMode { get; set; }
     }
 }

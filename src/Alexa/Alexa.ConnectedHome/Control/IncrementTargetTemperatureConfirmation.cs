@@ -5,9 +5,9 @@ namespace Alexa.ConnectedHome.Control
     public class IncrementTargetTemperatureConfirmation : MessagePayload
     {
         [JsonProperty("targetTemperature")]
-        public ControlParameter TargetTemperature { get; set; }
+        public ControlParameter<float> TargetTemperature { get; set; }
         [JsonProperty("temperatureMode")]
-        public ControlParameter TemperatureMode { get; set; }
+        public ControlParameter<string> TemperatureMode { get; set; }
         [JsonProperty("previousState")]
         public TemperatureState PreviousState { get; set; }
     }

@@ -7,7 +7,7 @@ namespace Alexa.ConnectedHome
 {
     public abstract class SmartHomeHandler
     {
-        public void Handle(JObject input)
+        public Message Handle(JObject input)
         {
             Message request = MessageFactory.Parse(input);
             MessagePayload payload = request.Payload;
@@ -65,6 +65,8 @@ namespace Alexa.ConnectedHome
             {
                 response = new Control.NoSuchTargetError();
             }
+
+            return MessageFactory.Create(response);
         }
 
         protected abstract Discovery.Appliance[] DiscoverAppliances(string accessToken);
@@ -73,7 +75,7 @@ namespace Alexa.ConnectedHome
         protected abstract void TurnOn(string accessToken, Appliance appliance);
         protected abstract void TurnOff(string accessToken, Appliance appliance);
         //Tunable Lighting Control Messages
-        protected abstract Control.LightColor SetColor(string accessToken, Appliance appliance, Control.LightColor color);
+        protected abstract LightColor SetColor(string accessToken, Appliance appliance, LightColor color);
         protected abstract float SetColorTemperature(string accessToken, Appliance appliance, float colorTemperature);
         protected abstract float IncrementColorTemperature(string accessToken, Appliance appliance);
         protected abstract float DecrementColorTemperature(string accessToken, Appliance appliance);
@@ -83,13 +85,13 @@ namespace Alexa.ConnectedHome
         //Temperature Control and Query Messages
         protected abstract float GetTemperatureReading(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp);
         protected abstract void GetTargetTemperature(string accessToken, Appliance appliance,
-            out float targetTemperature, out Query.TemperatureMode temperatureMode, out DateTime applianceResponseTimestamp);
+            out float targetTemperature, out TemperatureModeData temperatureMode, out DateTime applianceResponseTimestamp);
         protected abstract void SetTargetTemperature(string accessToken, Appliance appliance, float targetTemperature,
-            out Control.TemperatureState currentState, out Control.TemperatureState previousState);
+            out TemperatureState currentState, out TemperatureState previousState);
         protected abstract void IncrementTargetTemperature(string accessToken, Appliance appliance, float deltaTemperature,
-            out Control.TemperatureState currentState, out Control.TemperatureState previousState);
+            out TemperatureState currentState, out TemperatureState previousState);
         protected abstract void DecrementTargetTemperature(string accessToken, Appliance appliance, float deltaTemperature,
-            out Control.TemperatureState currentState, out Control.TemperatureState previousState);
+            out TemperatureState currentState, out TemperatureState previousState);
         //Percentage Messages
         protected abstract void SetPercentage(string accessToken, Appliance appliance, float percentage);
         protected abstract void IncrementPercentage(string accessToken, Appliance appliance, float deltaPercentage);
@@ -100,7 +102,7 @@ namespace Alexa.ConnectedHome
 
         Discovery.DiscoverAppliancesResponse ProgressMessage(Discovery.DiscoverAppliancesRequest request)
         {
-            var result = DiscoverAppliances(request.accessToken);
+            var result = DiscoverAppliances(request.AccessToken);
             return new Discovery.DiscoverAppliancesResponse
             {
                 discoveredAppliances = result,
@@ -203,7 +205,7 @@ namespace Alexa.ConnectedHome
         Query.GetTargetTemperatureResponse ProgressMessage(Query.GetTargetTemperatureRequest request)
         {
             float targetTemperature;
-            Query.TemperatureMode temperatureMode;
+            TemperatureModeData temperatureMode;
             DateTime applianceResponseTimestamp;
             GetTargetTemperature(request.AccessToken, request.Appliance,
                 out targetTemperature, out temperatureMode, out applianceResponseTimestamp);
@@ -218,7 +220,7 @@ namespace Alexa.ConnectedHome
 
         Control.SetTargetTemperatureConfirmation ProgressMessage(Control.SetTargetTemperatureRequest request)
         {
-            Control.TemperatureState currentState, previousState;
+            TemperatureState currentState, previousState;
             SetTargetTemperature(request.AccessToken, request.Appliance, (float)request.TargetTemperature.Value,
                 out currentState, out previousState);
 
@@ -232,7 +234,7 @@ namespace Alexa.ConnectedHome
 
         Control.IncrementTargetTemperatureConfirmation ProgressMessage(Control.IncrementTargetTemperatureRequest request)
         {
-            Control.TemperatureState currentState, previousState;
+            TemperatureState currentState, previousState;
             IncrementTargetTemperature(request.AccessToken, request.Appliance, (float)request.DeltaTemperature.Value,
                 out currentState, out previousState);
 
@@ -246,7 +248,7 @@ namespace Alexa.ConnectedHome
 
         Control.DecrementTargetTemperatureConfirmation ProgressMessage(Control.DecrementTargetTemperatureRequest request)
         {
-            Control.TemperatureState currentState, previousState;
+            TemperatureState currentState, previousState;
             DecrementTargetTemperature(request.AccessToken, request.Appliance, (float)request.DeltaTemperature.Value,
                 out currentState, out previousState);
 

@@ -6,6 +6,6 @@ namespace Alexa.ConnectedHome.Discovery
     public class DiscoverAppliancesRequest : MessagePayload
     {
         [JsonProperty("accessToken")]
-        public string accessToken { get; set; }
+        public string AccessToken { get; set; }
     }
 }
