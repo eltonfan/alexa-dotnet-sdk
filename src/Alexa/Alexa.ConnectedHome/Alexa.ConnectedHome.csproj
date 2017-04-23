@@ -24,6 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Control\SetLockStateConfirmation.cs" />
+    <None Include="Control\SetLockStateRequest.cs" />
+    <None Include="Query\GetLockStateRequest.cs" />
+    <None Include="Query\GetLockStateResponse.cs" />
     <None Include="Query\GetTargetTemperatureRequest.cs" />
     <None Include="Query\GetTargetTemperatureResponse.cs" />
     <None Include="Query\GetTemperatureReadingRequest.cs" />

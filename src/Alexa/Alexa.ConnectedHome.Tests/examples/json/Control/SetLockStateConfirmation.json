@@ -1,0 +1,11 @@
+{
+  "header": {
+    "messageId": "01ebf625-0b89-4c4d-b3aa-32340e894688",
+    "name": "SetLockStateConfirmation",
+    "namespace": "Alexa.ConnectedHome.Control",
+    "payloadVersion": "2"
+  },
+  "payload": {
+    "lockState": "LOCKED"
+  }
+}

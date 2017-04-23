@@ -40,6 +40,12 @@ namespace Alexa.ConnectedHome
                 typeof(Control.TurnOffRequest),
                 typeof(Control.TurnOffConfirmation),
 
+                //Door Lock Control and Query Messages 
+                typeof(Query.GetLockStateRequest),
+                typeof(Query.GetLockStateResponse),
+                typeof(Control.SetLockStateRequest),
+                typeof(Control.SetLockStateConfirmation),
+
                 //Temperature Control and Query Messages
                 typeof(Query.GetTemperatureReadingRequest),
                 typeof(Query.GetTemperatureReadingResponse),

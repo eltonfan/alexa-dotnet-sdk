@@ -1,0 +1,12 @@
+{
+  "header": {
+    "messageId": "00000000-0000-0000-0000-000000000000",
+    "name": "GetLockStateResponse",
+    "namespace": "Alexa.ConnectedHome.Query",
+    "payloadVersion": "2"
+  },
+  "payload": {
+    "lockState": "LOCKED",
+    "applianceResponseTimestamp": "2017-01-12T23:20:50.52Z"
+  }
+}

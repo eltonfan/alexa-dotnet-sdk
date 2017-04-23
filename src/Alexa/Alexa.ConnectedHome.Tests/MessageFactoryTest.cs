@@ -101,6 +101,17 @@ namespace Alexa.ConnectedHome.Tests
             TestMessages(typeof(Query.GetTargetTemperatureRequest));
             TestMessages(typeof(Query.GetTargetTemperatureResponse));
         }
+
+        [TestMethod]
+        public void TestDoorLockControlAndQueryMessages()
+        {
+            //Door Lock Control and Query Messages 
+            TestMessages(typeof(Query.GetLockStateRequest));
+            TestMessages(typeof(Query.GetLockStateResponse));
+            TestMessages(typeof(Control.SetLockStateRequest));
+            TestMessages(typeof(Control.SetLockStateConfirmation));
+        }
+
         [TestMethod]
         public void TestTemperatureControlMessages()
         {
