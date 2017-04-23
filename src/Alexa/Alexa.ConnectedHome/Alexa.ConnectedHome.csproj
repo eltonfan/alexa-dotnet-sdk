@@ -9,21 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Query\GetTargetTemperatureRequest.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Query\GetTargetTemperatureResponse.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Query\GetTemperatureReadingRequest.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Query\GetTemperatureReadingResponse.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Control\DecrementColorTemperatureConfirmation.cs" />
     <None Include="Control\DecrementColorTemperatureRequest.cs" />
     <None Include="Control\IncrementColorTemperatureConfirmation.cs" />
@@ -34,16 +19,10 @@
     <None Include="Control\SetColorTemperatureRequest.cs" />
     <None Include="Control\SetLockStateConfirmation.cs" />
     <None Include="Control\SetLockStateRequest.cs" />
-    <None Include="Query\GetLockStateRequest.cs" />
-    <None Include="Query\GetLockStateResponse.cs" />
-    <None Include="Query\GetTargetTemperatureRequest.cs" />
-    <None Include="Query\GetTargetTemperatureResponse.cs" />
-    <None Include="Query\GetTemperatureReadingRequest.cs" />
-    <None Include="Query\GetTemperatureReadingResponse.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Common.Logging" Version="3.4.0-Beta2" />
+    <PackageReference Include="Amazon.Lambda.Core" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
   </ItemGroup>
 

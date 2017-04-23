@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Amazon.Lambda.Core;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,8 +8,13 @@ namespace Alexa.ConnectedHome
 {
     public abstract class SmartHomeHandler
     {
-        public Message Handle(JObject input)
+        ILambdaContext context = null;
+        ILambdaLogger log = null;
+        public Message Handle(JObject input, ILambdaContext context)
         {
+            this.context = context;
+            this.log = context.Logger;
+
             Message request = MessageFactory.Parse(input);
             MessagePayload payload = request.Payload;
             MessagePayload response = null;
@@ -102,6 +108,7 @@ namespace Alexa.ConnectedHome
 
         Discovery.DiscoverAppliancesResponse ProgressMessage(Discovery.DiscoverAppliancesRequest request)
         {
+            log.LogLine("Action: DiscoverAppliances");
             var result = DiscoverAppliances(request.AccessToken);
             return new Discovery.DiscoverAppliancesResponse
             {
@@ -111,18 +118,21 @@ namespace Alexa.ConnectedHome
 
         Control.TurnOnConfirmation ProgressMessage(Control.TurnOnRequest request)
         {
+            log.LogLine("Action: TurnOn");
             TurnOn(request.AccessToken, request.Appliance);
             return new Control.TurnOnConfirmation { };
         }
 
         Control.TurnOffConfirmation ProgressMessage(Control.TurnOffRequest request)
         {
+            log.LogLine("Action: TurnOff");
             TurnOff(request.AccessToken, request.Appliance);
             return new Control.TurnOffConfirmation { };
         }
 
         Control.SetColorConfirmation ProgressMessage(Control.SetColorRequest request)
         {
+            log.LogLine("Action: SetColor");
             var achievedState = SetColor(request.AccessToken, request.Appliance, request.Color);
             return new Control.SetColorConfirmation
             {
@@ -135,6 +145,7 @@ namespace Alexa.ConnectedHome
 
         Control.SetColorTemperatureConfirmation ProgressMessage(Control.SetColorTemperatureRequest request)
         {
+            log.LogLine("Action: SetColorTemperature");
             var achievedState = SetColorTemperature(request.AccessToken, request.Appliance, (float)request.ColorTemperature.Value);
 
             return new Control.SetColorTemperatureConfirmation
@@ -147,6 +158,7 @@ namespace Alexa.ConnectedHome
         }
         Control.IncrementColorTemperatureConfirmation ProgressMessage(Control.IncrementColorTemperatureRequest request)
         {
+            log.LogLine("Action: IncrementColorTemperature");
             var achievedState = IncrementColorTemperature(request.AccessToken, request.Appliance);
             return new Control.IncrementColorTemperatureConfirmation
             {
@@ -159,6 +171,7 @@ namespace Alexa.ConnectedHome
         }
         Control.DecrementColorTemperatureConfirmation ProgressMessage(Control.DecrementColorTemperatureRequest request)
         {
+            log.LogLine("Action: DecrementColorTemperature");
             var achievedState = DecrementColorTemperature(request.AccessToken, request.Appliance);
             return new Control.DecrementColorTemperatureConfirmation
             {
@@ -171,6 +184,7 @@ namespace Alexa.ConnectedHome
 
         Query.GetLockStateResponse ProgressMessage(Query.GetLockStateRequest request)
         {
+            log.LogLine("Action: GetLockState");
             DateTime applianceResponseTimestamp;
             var currentState = GetLockState(request.AccessToken, request.Appliance, out applianceResponseTimestamp);
             return new Query.GetLockStateResponse
@@ -182,6 +196,7 @@ namespace Alexa.ConnectedHome
 
         Control.SetLockStateConfirmation ProgressMessage(Control.SetLockStateRequest request)
         {
+            log.LogLine("Action: SetLockState");
             var currentState = SetLockState(request.AccessToken, request.Appliance, request.LockState);
             return new Control.SetLockStateConfirmation
             {
@@ -191,6 +206,7 @@ namespace Alexa.ConnectedHome
 
         Query.GetTemperatureReadingResponse ProgressMessage(Query.GetTemperatureReadingRequest request)
         {
+            log.LogLine("Action: GetTemperatureReading");
             DateTime applianceResponseTimestamp;
             float temperature = GetTemperatureReading(request.AccessToken, request.Appliance, out applianceResponseTimestamp);
 
@@ -204,6 +220,7 @@ namespace Alexa.ConnectedHome
 
         Query.GetTargetTemperatureResponse ProgressMessage(Query.GetTargetTemperatureRequest request)
         {
+            log.LogLine("Action: GetTargetTemperature");
             float targetTemperature;
             TemperatureModeData temperatureMode;
             DateTime applianceResponseTimestamp;
@@ -220,6 +237,7 @@ namespace Alexa.ConnectedHome
 
         Control.SetTargetTemperatureConfirmation ProgressMessage(Control.SetTargetTemperatureRequest request)
         {
+            log.LogLine("Action: SetTargetTemperature");
             TemperatureState currentState, previousState;
             SetTargetTemperature(request.AccessToken, request.Appliance, (float)request.TargetTemperature.Value,
                 out currentState, out previousState);
@@ -234,6 +252,7 @@ namespace Alexa.ConnectedHome
 
         Control.IncrementTargetTemperatureConfirmation ProgressMessage(Control.IncrementTargetTemperatureRequest request)
         {
+            log.LogLine("Action: IncrementTargetTemperature");
             TemperatureState currentState, previousState;
             IncrementTargetTemperature(request.AccessToken, request.Appliance, (float)request.DeltaTemperature.Value,
                 out currentState, out previousState);
@@ -248,6 +267,7 @@ namespace Alexa.ConnectedHome
 
         Control.DecrementTargetTemperatureConfirmation ProgressMessage(Control.DecrementTargetTemperatureRequest request)
         {
+            log.LogLine("Action: DecrementTargetTemperature");
             TemperatureState currentState, previousState;
             DecrementTargetTemperature(request.AccessToken, request.Appliance, (float)request.DeltaTemperature.Value,
                 out currentState, out previousState);
@@ -262,24 +282,28 @@ namespace Alexa.ConnectedHome
 
         Control.SetPercentageConfirmation ProgressMessage(Control.SetPercentageRequest request)
         {
+            log.LogLine("Action: SetPercentage");
             SetPercentage(request.AccessToken, request.Appliance, (float)request.PercentageState.Value);
             return new Control.SetPercentageConfirmation { };
         }
 
         Control.IncrementPercentageConfirmation ProgressMessage(Control.IncrementPercentageRequest request)
         {
+            log.LogLine("Action: IncrementPercentage");
             IncrementPercentage(request.AccessToken, request.Appliance, (float)request.DeltaPercentage.Value);
             return new Control.IncrementPercentageConfirmation { };
         }
 
         Control.DecrementPercentageConfirmation ProgressMessage(Control.DecrementPercentageRequest request)
         {
+            log.LogLine("Action: DecrementPercentage");
             DecrementPercentage(request.AccessToken, request.Appliance, (float)request.DeltaPercentage.Value);
             return new Control.DecrementPercentageConfirmation { };
         }
 
         Alexa.ConnectedHome.System.HealthCheckResponse ProgressMessage(Alexa.ConnectedHome.System.HealthCheckRequest request)
         {
+            log.LogLine("Action: HealthCheck");
             string description;
             bool isHealthy = HealthCheck(long.Parse(request.InitiationTimestamp), out description);
             return new System.HealthCheckResponse(isHealthy, description);
