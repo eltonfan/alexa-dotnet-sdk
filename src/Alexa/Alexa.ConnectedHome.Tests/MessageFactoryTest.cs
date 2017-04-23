@@ -91,6 +91,16 @@ namespace Alexa.ConnectedHome.Tests
                 typeof(Control.TurnOffRequest),
                 typeof(Control.TurnOffConfirmation));
         }
+
+        [TestMethod]
+        public void TestTemperatureQueryMessages()
+        {
+            //Temperature Query Messages
+            TestMessages(typeof(Query.GetTemperatureReadingRequest));
+            TestMessages(typeof(Query.GetTemperatureReadingResponse));
+            TestMessages(typeof(Query.GetTargetTemperatureRequest));
+            TestMessages(typeof(Query.GetTargetTemperatureResponse));
+        }
         [TestMethod]
         public void TestTemperatureControlMessages()
         {

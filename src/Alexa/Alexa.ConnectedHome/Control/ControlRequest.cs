@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Alexa.ConnectedHome.Control
+namespace Alexa.ConnectedHome
 {
     public class Appliance
     {
@@ -14,7 +14,7 @@ namespace Alexa.ConnectedHome.Control
     public class ControlParameter
     {
         [JsonProperty("value")]
-        public object value { get; set; }
+        public object Value { get; set; }
     }
 
 

@@ -1,0 +1,18 @@
+{
+  "header": {
+    "messageId": "00000000-0000-0000-0000-000000000000",
+    "name": "GetTargetTemperatureResponse",
+    "namespace": "Alexa.ConnectedHome.Query",
+    "payloadVersion": "2"
+  },
+  "payload": {
+    "targetTemperature": {
+      "value": 20.50
+    },
+    "applianceResponseTimestamp": "2017-01-12T23:20:50.52Z",
+    "temperatureMode": {
+      "value": "CUSTOM",
+      "friendlyName": "Required device-specific mode name"
+    }
+  }
+}

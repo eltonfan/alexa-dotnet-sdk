@@ -1,0 +1,21 @@
+{
+  "header": {
+    "messageId": "00000000-0000-0000-0000-000000000000",
+    "name": "GetTargetTemperaturesResponse",
+    "namespace": "Alexa.ConnectedHome.Query",
+    "payloadVersion": "2"
+  },
+  "payload": {
+    "coolingTargetTemperature": {
+      "value": 23.89
+    },
+    "heatingTargetTemperature": {
+      "value": 22.20
+    },
+    "applianceResponseTimestamp": "2017-01-12T23:20:50.52Z",
+    "temperatureMode": {
+      "value": "AUTO",
+      "friendlyName": "Heat-Cool"
+    }
+  }
+}

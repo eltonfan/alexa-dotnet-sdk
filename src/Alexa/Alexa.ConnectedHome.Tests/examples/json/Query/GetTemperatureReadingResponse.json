@@ -1,0 +1,14 @@
+{
+  "header": {
+    "messageId": "00000000-0000-0000-0000-000000000000",
+    "name": "GetTemperatureReadingResponse",
+    "namespace": "Alexa.ConnectedHome.Query",
+    "payloadVersion": "2"
+  },
+  "payload": {
+    "temperatureReading": {
+      "value": 21.11
+    },
+    "applianceResponseTimestamp": "2017-01-12T23:20:50.52Z"
+  }
+}

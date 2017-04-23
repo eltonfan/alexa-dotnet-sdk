@@ -40,7 +40,11 @@ namespace Alexa.ConnectedHome
                 typeof(Control.TurnOffRequest),
                 typeof(Control.TurnOffConfirmation),
 
-                //Temperature Control Messages
+                //Temperature Control and Query Messages
+                typeof(Query.GetTemperatureReadingRequest),
+                typeof(Query.GetTemperatureReadingResponse),
+                typeof(Query.GetTargetTemperatureRequest),
+                typeof(Query.GetTargetTemperatureResponse),
                 typeof(Control.SetTargetTemperatureRequest),
                 typeof(Control.SetTargetTemperatureConfirmation),
                 typeof(Control.IncrementTargetTemperatureRequest),

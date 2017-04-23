@@ -1,0 +1,20 @@
+{
+  "header": {
+    "messageId": "00000000-0000-0000-0000-000000000000",
+    "name": "GetTargetTemperatureRequest",
+    "namespace": "Alexa.ConnectedHome.Query",
+    "payloadVersion": "2"
+  },
+  "payload": {
+    "accessToken": "[OAuth token here]",
+    "appliance": {
+      "applianceId": "[Device ID for the specified thermostat]",
+      "additionalApplianceDetails": {
+        "extraDetail1": "optionalDetailForSkillAdapterToReferenceThisDevice",
+        "extraDetail2": "There can be multiple entries",
+        "extraDetail3": "but they should only be used for reference purposes.",
+        "extraDetail4": "This is not a suitable place to maintain current device state"
+      }
+    }
+  }
+}
