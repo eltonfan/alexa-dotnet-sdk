@@ -1,0 +1,20 @@
+{
+  "header": {
+    "messageId": "00000000-0000-0000-0000-000000000000",
+    "namespace": "Alexa.ConnectedHome.Control",
+    "name": "SetColorRequest",
+    "payloadVersion": "2"
+  },
+  "payload": {
+    "accessToken": "[OAuth Token here]",
+    "appliance": {
+      "applianceId": "[Device ID for RGB-capable bulb]",
+      "additionalApplianceDetails": {}
+    },
+    "color": {
+      "hue": 0.0,
+      "saturation": 1.0000,
+      "brightness": 1.0000
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "header": {
+    "messageId": "00000000-0000-0000-0000-000000000000",
+    "namespace": "Alexa.ConnectedHome.Control",
+    "name": "SetColorConfirmation",
+    "payloadVersion": "2"
+  },
+  "payload": {
+    "achievedState": {
+      "color": {
+        "hue": 0.0,
+         "saturation": 1.0000,
+         "brightness": 1.0000
+      }
+    }
+  }
+}

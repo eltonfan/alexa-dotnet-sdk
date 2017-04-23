@@ -24,6 +24,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Control\DecrementColorTemperatureConfirmation.cs" />
+    <None Include="Control\DecrementColorTemperatureRequest.cs" />
+    <None Include="Control\IncrementColorTemperatureConfirmation.cs" />
+    <None Include="Control\IncrementColorTemperatureRequest.cs" />
+    <None Include="Control\SetColorConfirmation.cs" />
+    <None Include="Control\SetColorRequest.cs" />
+    <None Include="Control\SetColorTemperatureConfirmation.cs" />
+    <None Include="Control\SetColorTemperatureRequest.cs" />
     <None Include="Control\SetLockStateConfirmation.cs" />
     <None Include="Control\SetLockStateRequest.cs" />
     <None Include="Query\GetLockStateRequest.cs" />

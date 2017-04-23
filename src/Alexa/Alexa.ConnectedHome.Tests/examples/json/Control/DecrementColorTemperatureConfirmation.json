@@ -1,0 +1,15 @@
+{
+  "header": {
+    "messageId": "00000000-0000-0000-0000-000000000000",
+    "name": "DecrementColorTemperatureConfirmation",
+    "namespace": "Alexa.ConnectedHome.Control",
+    "payloadVersion": "2"
+  },
+  "payload": {
+    "achievedState": {
+      "colorTemperature": {
+        "value": 2700
+      }
+    }
+  }
+}

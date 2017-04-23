@@ -93,6 +93,20 @@ namespace Alexa.ConnectedHome.Tests
         }
 
         [TestMethod]
+        public void TestTunableLightingControlMessages()
+        {
+            //Tunable Lighting Control Messages
+            TestMessages(typeof(Control.SetColorRequest));
+            TestMessages(typeof(Control.SetColorConfirmation));
+            TestMessages(typeof(Control.SetColorTemperatureRequest));
+            TestMessages(typeof(Control.SetColorTemperatureConfirmation));
+            TestMessages(typeof(Control.IncrementColorTemperatureRequest));
+            TestMessages(typeof(Control.IncrementColorTemperatureConfirmation));
+            TestMessages(typeof(Control.DecrementColorTemperatureRequest));
+            TestMessages(typeof(Control.DecrementColorTemperatureConfirmation));
+        }
+
+        [TestMethod]
         public void TestTemperatureQueryMessages()
         {
             //Temperature Query Messages

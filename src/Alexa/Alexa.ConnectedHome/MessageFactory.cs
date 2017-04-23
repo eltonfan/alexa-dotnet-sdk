@@ -40,6 +40,16 @@ namespace Alexa.ConnectedHome
                 typeof(Control.TurnOffRequest),
                 typeof(Control.TurnOffConfirmation),
 
+                //Tunable Lighting Control Messages
+                typeof(Control.SetColorRequest),
+                typeof(Control.SetColorConfirmation),
+                typeof(Control.SetColorTemperatureRequest),
+                typeof(Control.SetColorTemperatureConfirmation),
+                typeof(Control.IncrementColorTemperatureRequest),
+                typeof(Control.IncrementColorTemperatureConfirmation),
+                typeof(Control.DecrementColorTemperatureRequest),
+                typeof(Control.DecrementColorTemperatureConfirmation),
+
                 //Door Lock Control and Query Messages 
                 typeof(Query.GetLockStateRequest),
                 typeof(Query.GetLockStateResponse),

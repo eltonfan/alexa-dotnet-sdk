@@ -1,0 +1,15 @@
+{
+  "header": {
+    "messageId": "00000000-0000-0000-0000-000000000000",
+    "name": "IncrementColorTemperatureRequest",
+    "namespace": "Alexa.ConnectedHome.Control",
+    "payloadVersion": "2"
+  },
+  "payload": {
+    "accessToken": "[OAuth Token here]",
+    "appliance": {
+      "additionalApplianceDetails": {},
+      "applianceId": "[Device ID for tunable white-capable bulb]",
+    }
+  }
+}
