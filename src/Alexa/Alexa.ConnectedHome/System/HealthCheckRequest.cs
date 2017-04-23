@@ -18,17 +18,4 @@ namespace Alexa.ConnectedHome.System
         /// </summary>
         public string initiationTimestamp { get; set; }
     }
-    /*
-  {
-        "header": {
-            "messageId": "243550dc-5f95-4ae4-ad43-4e1e7cb037fd",
-            "name": " HealthCheckRequest",
-            "namespace": "Alexa.ConnectedHome.System",
-            "payloadVersion": "2"
-        },
-        "payload": {
-            "initiationTimestamp": "1435302567000"
-        }
-    }
-     */
 }

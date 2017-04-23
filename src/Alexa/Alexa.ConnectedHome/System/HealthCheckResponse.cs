@@ -20,17 +20,4 @@ namespace Alexa.ConnectedHome.System
         /// </summary>
         public string description { get; set; }
     }
-    /*
-     * {
-        "header": {
-            "messageId": "f9905dc8-b861-4912-bcf7-5b90f62b3a71",
-            "name": "HealthCheckResponse",
-            "namespace": "Alexa.ConnectedHome.System",
-            "payloadVersion": "2"
-        },
-        "payload": {
-            "description": "The system is currently healthy",
-            "isHealthy": true
-        }
-    }*/
 }

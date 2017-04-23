@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alexa.ConnectedHome", "Alexa.ConnectedHome\Alexa.ConnectedHome.csproj", "{FF1B2B88-8B51-45E7-8D3E-A02AD883C431}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alexa.ConnectedHome.Tests", "Alexa.ConnectedHome.Tests\Alexa.ConnectedHome.Tests.csproj", "{8DFC7E11-9229-4930-9EE2-004880EFAF87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FF1B2B88-8B51-45E7-8D3E-A02AD883C431}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF1B2B88-8B51-45E7-8D3E-A02AD883C431}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF1B2B88-8B51-45E7-8D3E-A02AD883C431}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DFC7E11-9229-4930-9EE2-004880EFAF87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DFC7E11-9229-4930-9EE2-004880EFAF87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DFC7E11-9229-4930-9EE2-004880EFAF87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DFC7E11-9229-4930-9EE2-004880EFAF87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

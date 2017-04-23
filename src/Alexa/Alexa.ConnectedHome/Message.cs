@@ -14,6 +14,6 @@ namespace Alexa.ConnectedHome
         [JsonProperty("header")]
         public MessageHeader Header { get; set; }
         [JsonProperty("payload")]
-        public dynamic Payload { get; set; }
+        public MessagePayload Payload { get; set; }
     }
 }

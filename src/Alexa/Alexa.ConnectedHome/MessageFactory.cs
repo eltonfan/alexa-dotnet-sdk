@@ -12,7 +12,7 @@ namespace Alexa.ConnectedHome
     {
         static MessageFactory instance;
 
-        protected static MessageFactory Default
+        public static MessageFactory Default
         {
             get
             {
@@ -92,6 +92,11 @@ namespace Alexa.ConnectedHome
             {
                 dicTypes.Add(item.FullName, item);
             }
+        }
+
+        public IEnumerable<Type> SupportedMessages
+        {
+            get { return dicTypes.Values; }
         }
 
         protected Message ParseMessage(string jsonString)
