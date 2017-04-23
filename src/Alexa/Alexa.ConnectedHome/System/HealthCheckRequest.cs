@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Alexa.ConnectedHome.System
+﻿namespace Alexa.ConnectedHome.System
 {
     /// <summary>
     /// Requests the availability of the skill adapter. These are periodically sent by the Smart Home Skill API to the skill adapter.

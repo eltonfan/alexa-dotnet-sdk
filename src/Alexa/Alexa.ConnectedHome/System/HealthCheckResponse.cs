@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Alexa.ConnectedHome.System
+﻿namespace Alexa.ConnectedHome.System
 {
     /// <summary>
     /// Indicates a successful or failed health check. The expected response to a HealthCheckRequest, and sent from the skill adapter to the Smart Home Skill API.

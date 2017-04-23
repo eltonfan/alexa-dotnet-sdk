@@ -81,6 +81,17 @@ namespace Alexa.ConnectedHome.Tests
         }
 
         [TestMethod]
+        public void TestOnOffMessages()
+        {
+            //On/Off Messages
+            TestMessages(
+                typeof(Control.TurnOnRequest),
+                typeof(Control.TurnOnConfirmation),
+                typeof(Control.TurnOffRequest),
+                typeof(Control.TurnOffConfirmation));
+        }
+
+        //[TestMethod]
         public void TestAllMessage()
         {
             foreach (Type messageType in MessageFactory.Default.SupportedMessages)
