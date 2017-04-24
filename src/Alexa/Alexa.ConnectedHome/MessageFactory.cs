@@ -106,12 +106,23 @@ namespace Alexa.ConnectedHome
                 typeof(Control.UnsupportedOperationError),
                 typeof(Control.UnsupportedTargetSettingError),
                 typeof(Control.UnexpectedInformationReceivedError),
+
+                //Custom
+                typeof(Elton.ConnectedHome.Messaging.EventReport),
+                typeof(Elton.ConnectedHome.Messaging.HeartbeatReport),
             };
 
             foreach (var item in array)
             {
                 dicTypes.Add(item.FullName, item);
             }
+        }
+
+        public void AddSupportedMessage(Type messageType)
+        {
+            if (dicTypes.ContainsKey(messageType.FullName))
+                return;
+            dicTypes.Add(messageType.FullName, messageType);
         }
 
         public IEnumerable<Type> SupportedMessages

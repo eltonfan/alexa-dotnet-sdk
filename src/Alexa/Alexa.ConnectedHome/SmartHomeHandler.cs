@@ -18,10 +18,8 @@ namespace Alexa.ConnectedHome
 
     public abstract class AbstractSmartHomeHandler : ISmartHomeHandler
     {
-        protected virtual void Log(LogLevel level, string format, params object[] arguments)
-        {
-            Console.WriteLine(level.ToString().ToUpper() + ": " + string.Format(format, arguments));
-        }
+        protected abstract void Log(LogLevel level, string format, params object[] arguments);
+
         protected virtual void LogDebug(string format, params object[] arguments)
         {
             Log(LogLevel.Debug, format, arguments);
