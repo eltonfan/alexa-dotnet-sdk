@@ -343,7 +343,7 @@ namespace Alexa.ConnectedHome
         }
     }
 
-    public class SmartHomeHandler : AbstractSmartHomeHandler
+    public abstract class SmartHomeHandler : AbstractSmartHomeHandler
     {
         protected override ApplianceDetails[] DiscoverAppliances(string accessToken)
         {
