@@ -5,7 +5,6 @@ using System.Text;
 
 namespace Alexa.ConnectedHome
 {
-
     public enum LogLevel
     {
         All,
@@ -17,7 +16,7 @@ namespace Alexa.ConnectedHome
         Fatal,
     }
 
-    public abstract class AbstractSmartHomeHandler
+    public abstract class AbstractSmartHomeHandler : ISmartHomeHandler
     {
         protected virtual void Log(LogLevel level, string format, params object[] arguments)
         {
@@ -118,12 +117,12 @@ namespace Alexa.ConnectedHome
         protected abstract void TurnOff(string accessToken, Appliance appliance);
         //Tunable Lighting Control Messages
         protected abstract LightColor SetColor(string accessToken, Appliance appliance, LightColor color);
-        protected abstract float SetColorTemperature(string accessToken, Appliance appliance, float colorTemperature);
-        protected abstract float IncrementColorTemperature(string accessToken, Appliance appliance);
-        protected abstract float DecrementColorTemperature(string accessToken, Appliance appliance);
+        protected abstract int SetColorTemperature(string accessToken, Appliance appliance, int colorTemperature);
+        protected abstract int IncrementColorTemperature(string accessToken, Appliance appliance);
+        protected abstract int DecrementColorTemperature(string accessToken, Appliance appliance);
         //Door Lock Control and Query Messages 
-        protected abstract string GetLockState(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp);
-        protected abstract string SetLockState(string accessToken, Appliance appliance, string lockState);
+        protected abstract ApplianceLockState GetLockState(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp);
+        protected abstract ApplianceLockState SetLockState(string accessToken, Appliance appliance, ApplianceLockState lockState);
         //Temperature Control and Query Messages
         protected abstract float GetTemperatureReading(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp);
         protected abstract void GetTargetTemperature(string accessToken, Appliance appliance,
@@ -148,7 +147,7 @@ namespace Alexa.ConnectedHome
             var result = DiscoverAppliances(request.AccessToken);
             return new Discovery.DiscoverAppliancesResponse
             {
-                discoveredAppliances = result,
+                DiscoveredAppliances = result,
             };
         }
 
@@ -182,13 +181,13 @@ namespace Alexa.ConnectedHome
         Control.SetColorTemperatureConfirmation ProgressMessage(Control.SetColorTemperatureRequest request)
         {
             LogInfo("Action: SetColorTemperature");
-            var achievedState = SetColorTemperature(request.AccessToken, request.Appliance, (float)request.ColorTemperature.Value);
+            var achievedState = SetColorTemperature(request.AccessToken, request.Appliance, request.ColorTemperature.Value);
 
             return new Control.SetColorTemperatureConfirmation
             {
                 AchievedState = new Control.ColorTemperatureAchievedState
                 {
-                    ColorTemperature = new ControlParameter { Value = achievedState },
+                    ColorTemperature = new ControlParameter<int>(achievedState),
                 }
             };
         }
@@ -200,7 +199,7 @@ namespace Alexa.ConnectedHome
             {
                 AchievedState = new Control.ColorTemperatureAchievedState
                 {
-                    ColorTemperature = new ControlParameter { Value = achievedState },
+                    ColorTemperature = new ControlParameter<int>(achievedState),
                 }
             };
 
@@ -213,7 +212,7 @@ namespace Alexa.ConnectedHome
             {
                 AchievedState = new Control.ColorTemperatureAchievedState
                 {
-                    ColorTemperature = new ControlParameter(achievedState),
+                    ColorTemperature = new ControlParameter<int>(achievedState),
                 }
             };
         }
@@ -248,7 +247,7 @@ namespace Alexa.ConnectedHome
 
             return new Query.GetTemperatureReadingResponse
             {
-                TemperatureReading = new ControlParameter(temperature),
+                TemperatureReading = new ControlParameter<float>(temperature),
                 ApplianceResponseTimestamp = applianceResponseTimestamp,
             };
 
@@ -265,7 +264,7 @@ namespace Alexa.ConnectedHome
 
             return new Query.GetTargetTemperatureResponse
             {
-                TargetTemperature = new ControlParameter(targetTemperature),
+                TargetTemperature = new ControlParameter<float>(targetTemperature),
                 ApplianceResponseTimestamp = applianceResponseTimestamp,
                 TemperatureMode = temperatureMode,
             };
@@ -371,30 +370,30 @@ namespace Alexa.ConnectedHome
             throw new NotImplementedException();
         }
 
-        protected override float SetColorTemperature(string accessToken, Appliance appliance, float colorTemperature)
+        protected override int SetColorTemperature(string accessToken, Appliance appliance, int colorTemperature)
         {
             throw new NotImplementedException();
         }
 
 
-        protected override float IncrementColorTemperature(string accessToken, Appliance appliance)
+        protected override int IncrementColorTemperature(string accessToken, Appliance appliance)
         {
             throw new NotImplementedException();
         }
 
-        protected override float DecrementColorTemperature(string accessToken, Appliance appliance)
+        protected override int DecrementColorTemperature(string accessToken, Appliance appliance)
         {
             throw new NotImplementedException();
         }
 
         //Door Lock Control and Query Messages 
 
-        protected override string GetLockState(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp)
+        protected override ApplianceLockState GetLockState(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp)
         {
             throw new NotImplementedException();
         }
 
-        protected override string SetLockState(string accessToken, Appliance appliance, string lockState)
+        protected override ApplianceLockState SetLockState(string accessToken, Appliance appliance, ApplianceLockState lockState)
         {
             throw new NotImplementedException();
         }

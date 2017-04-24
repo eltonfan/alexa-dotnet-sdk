@@ -5,7 +5,7 @@ namespace Alexa.ConnectedHome.Control
     public class ColorTemperatureAchievedState
     {
         [JsonProperty("colorTemperature")]
-        public ControlParameter ColorTemperature { get; set; }
+        public ControlParameter<int> ColorTemperature { get; set; }
     }
 
     public class DecrementColorTemperatureConfirmation : MessagePayload

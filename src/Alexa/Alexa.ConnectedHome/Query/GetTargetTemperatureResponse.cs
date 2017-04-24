@@ -6,7 +6,7 @@ namespace Alexa.ConnectedHome.Query
     public class GetTargetTemperatureResponse : MessagePayload
     {
         [JsonProperty("targetTemperature")]
-        public ControlParameter TargetTemperature { get; set; }
+        public ControlParameter<float> TargetTemperature { get; set; }
         [JsonProperty("applianceResponseTimestamp")]
         public DateTime ApplianceResponseTimestamp { get; set; }
         [JsonProperty("temperatureMode")]

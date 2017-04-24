@@ -1,10 +1,11 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Alexa.ConnectedHome.Control
 {
     public class SetLockStateRequest : ControlRequest
     {
-        [JsonProperty("lockState")]
-        public string LockState { get; set; }
+        [JsonProperty("lockState"), JsonConverter(typeof(StringEnumConverter))]
+        public ApplianceLockState LockState { get; set; }
     }
 }

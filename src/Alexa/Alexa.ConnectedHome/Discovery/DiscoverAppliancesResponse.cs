@@ -6,6 +6,7 @@ namespace Alexa.ConnectedHome.Discovery
     [JsonObject]
     public class DiscoverAppliancesResponse : MessagePayload
     {
-        public ApplianceDetails[] discoveredAppliances { get; set; }
+        [JsonProperty("discoveredAppliances")]
+        public ApplianceDetails[] DiscoveredAppliances { get; set; }
     }
 }

@@ -7,15 +7,23 @@ namespace Alexa.ConnectedHome
     [JsonObject]
     public class ApplianceDetails
     {
-        //[JsonConverter(typeof(StringEnumConverter))]
-        public string[] actions { get; set; }
-        public Dictionary<string, string> additionalApplianceDetails { get; set; }
-        public string applianceId { get; set; }
-        public string friendlyDescription { get; set; }
-        public string friendlyName { get; set; }
-        public bool isReachable { get; set; }
-        public string manufacturerName { get; set; }
-        public string modelName { get; set; }
-        public string version { get; set; }
+        [JsonProperty("actions")]//, JsonConverter(typeof(StringEnumConverter))]
+        public string[] Actions { get; set; }
+        [JsonProperty("additionalApplianceDetails")]
+        public Dictionary<string, string> AdditionalApplianceDetails { get; set; }
+        [JsonProperty("applianceId")]
+        public string ApplianceId { get; set; }
+        [JsonProperty("friendlyDescription")]
+        public string FriendlyDescription { get; set; }
+        [JsonProperty("friendlyName")]
+        public string FriendlyName { get; set; }
+        [JsonProperty("isReachable")]
+        public bool IsReachable { get; set; }
+        [JsonProperty("manufacturerName")]
+        public string ManufacturerName { get; set; }
+        [JsonProperty("modelName")]
+        public string ModelName { get; set; }
+        [JsonProperty("version")]
+        public string Version { get; set; }
     }
 }
