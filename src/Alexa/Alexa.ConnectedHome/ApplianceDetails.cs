@@ -2,10 +2,10 @@
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 
-namespace Alexa.ConnectedHome.Discovery
+namespace Alexa.ConnectedHome
 {
     [JsonObject]
-    public class Appliance
+    public class ApplianceDetails
     {
         //[JsonConverter(typeof(StringEnumConverter))]
         public string[] actions { get; set; }

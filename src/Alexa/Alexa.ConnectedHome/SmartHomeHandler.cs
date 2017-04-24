@@ -1,41 +1,56 @@
-﻿using Amazon.Lambda.Core;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Alexa.ConnectedHome
 {
-    public abstract class SmartHomeHandler
+
+    public enum LogLevel
     {
-        ILambdaContext context = null;
-        ILambdaLogger log = null;
+        All,
+        Trace,
+        Debug,
+        Info,
+        Warn,
+        Error,
+        Fatal,
+    }
 
-        protected virtual void LogLine(string format, params object[] arguments)
+    public abstract class AbstractSmartHomeHandler
+    {
+        protected virtual void Log(LogLevel level, string format, params object[] arguments)
         {
-            if (log == null)
-                return;
-
-            log.LogLine(string.Format(format, arguments));
+            Console.WriteLine(level.ToString().ToUpper() + ": " + string.Format(format, arguments));
+        }
+        protected virtual void LogDebug(string format, params object[] arguments)
+        {
+            Log(LogLevel.Debug, format, arguments);
+        }
+        protected virtual void LogInfo(string format, params object[] arguments)
+        {
+            Log(LogLevel.Info, format, arguments);
+        }
+        protected virtual void LogWarn(string format, params object[] arguments)
+        {
+            Log(LogLevel.Warn, format, arguments);
+        }
+        protected virtual void LogError(string format, params object[] arguments)
+        {
+            Log(LogLevel.Error, format, arguments);
         }
 
-        public Message Handle(string input)
+        protected Message ProgressMessage(string requestJsonString)
         {
-            this.context = null;
-            this.log = null;
-
-            return ProgressMessage(MessageFactory.Parse(input));
+            return ProgressMessage(MessageFactory.Parse(requestJsonString));
         }
 
-        public Message Handle(JObject input, ILambdaContext context)
+        protected Message ProgressMessage(JObject requestObj)
         {
-            this.context = context;
-            this.log = (context == null) ? null : context.Logger;
-
-            return ProgressMessage(MessageFactory.Parse(input));
+            return ProgressMessage(MessageFactory.Parse(requestObj));
         }
 
-        public Message ProgressMessage(Message request)
+        protected Message ProgressMessage(Message request)
         {
             MessagePayload payload = request.Payload;
             MessagePayload response = null;
@@ -88,7 +103,7 @@ namespace Alexa.ConnectedHome
                 else
                     throw new NotSupportedException(string.Format("Not supported message type '{0}'.", payload.GetType().FullName));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response = new Control.NoSuchTargetError();
             }
@@ -96,7 +111,7 @@ namespace Alexa.ConnectedHome
             return MessageFactory.Create(response);
         }
 
-        protected abstract Discovery.Appliance[] DiscoverAppliances(string accessToken);
+        protected abstract ApplianceDetails[] DiscoverAppliances(string accessToken);
 
         //On/Off Messages
         protected abstract void TurnOn(string accessToken, Appliance appliance);
@@ -129,7 +144,7 @@ namespace Alexa.ConnectedHome
 
         Discovery.DiscoverAppliancesResponse ProgressMessage(Discovery.DiscoverAppliancesRequest request)
         {
-            LogLine("Action: DiscoverAppliances");
+            LogInfo("Action: DiscoverAppliances");
             var result = DiscoverAppliances(request.AccessToken);
             return new Discovery.DiscoverAppliancesResponse
             {
@@ -139,21 +154,21 @@ namespace Alexa.ConnectedHome
 
         Control.TurnOnConfirmation ProgressMessage(Control.TurnOnRequest request)
         {
-            LogLine("Action: TurnOn");
+            LogInfo("Action: TurnOn");
             TurnOn(request.AccessToken, request.Appliance);
             return new Control.TurnOnConfirmation { };
         }
 
         Control.TurnOffConfirmation ProgressMessage(Control.TurnOffRequest request)
         {
-            LogLine("Action: TurnOff");
+            LogInfo("Action: TurnOff");
             TurnOff(request.AccessToken, request.Appliance);
             return new Control.TurnOffConfirmation { };
         }
 
         Control.SetColorConfirmation ProgressMessage(Control.SetColorRequest request)
         {
-            LogLine("Action: SetColor");
+            LogInfo("Action: SetColor");
             var achievedState = SetColor(request.AccessToken, request.Appliance, request.Color);
             return new Control.SetColorConfirmation
             {
@@ -166,33 +181,33 @@ namespace Alexa.ConnectedHome
 
         Control.SetColorTemperatureConfirmation ProgressMessage(Control.SetColorTemperatureRequest request)
         {
-            LogLine("Action: SetColorTemperature");
+            LogInfo("Action: SetColorTemperature");
             var achievedState = SetColorTemperature(request.AccessToken, request.Appliance, (float)request.ColorTemperature.Value);
 
             return new Control.SetColorTemperatureConfirmation
             {
-                 AchievedState = new Control.ColorTemperatureAchievedState
-                 {
-                     ColorTemperature = new ControlParameter { Value = achievedState },
-                 }
+                AchievedState = new Control.ColorTemperatureAchievedState
+                {
+                    ColorTemperature = new ControlParameter { Value = achievedState },
+                }
             };
         }
         Control.IncrementColorTemperatureConfirmation ProgressMessage(Control.IncrementColorTemperatureRequest request)
         {
-            LogLine("Action: IncrementColorTemperature");
+            LogInfo("Action: IncrementColorTemperature");
             var achievedState = IncrementColorTemperature(request.AccessToken, request.Appliance);
             return new Control.IncrementColorTemperatureConfirmation
             {
-                 AchievedState = new Control.ColorTemperatureAchievedState
-                 {
-                      ColorTemperature = new ControlParameter {  Value = achievedState },
-                 }
+                AchievedState = new Control.ColorTemperatureAchievedState
+                {
+                    ColorTemperature = new ControlParameter { Value = achievedState },
+                }
             };
 
         }
         Control.DecrementColorTemperatureConfirmation ProgressMessage(Control.DecrementColorTemperatureRequest request)
         {
-            LogLine("Action: DecrementColorTemperature");
+            LogInfo("Action: DecrementColorTemperature");
             var achievedState = DecrementColorTemperature(request.AccessToken, request.Appliance);
             return new Control.DecrementColorTemperatureConfirmation
             {
@@ -205,7 +220,7 @@ namespace Alexa.ConnectedHome
 
         Query.GetLockStateResponse ProgressMessage(Query.GetLockStateRequest request)
         {
-            LogLine("Action: GetLockState");
+            LogInfo("Action: GetLockState");
             DateTime applianceResponseTimestamp;
             var currentState = GetLockState(request.AccessToken, request.Appliance, out applianceResponseTimestamp);
             return new Query.GetLockStateResponse
@@ -217,31 +232,31 @@ namespace Alexa.ConnectedHome
 
         Control.SetLockStateConfirmation ProgressMessage(Control.SetLockStateRequest request)
         {
-            LogLine("Action: SetLockState");
+            LogInfo("Action: SetLockState");
             var currentState = SetLockState(request.AccessToken, request.Appliance, request.LockState);
             return new Control.SetLockStateConfirmation
             {
-                 LockState = currentState,
+                LockState = currentState,
             };
         }
 
         Query.GetTemperatureReadingResponse ProgressMessage(Query.GetTemperatureReadingRequest request)
         {
-            LogLine("Action: GetTemperatureReading");
+            LogInfo("Action: GetTemperatureReading");
             DateTime applianceResponseTimestamp;
             float temperature = GetTemperatureReading(request.AccessToken, request.Appliance, out applianceResponseTimestamp);
 
             return new Query.GetTemperatureReadingResponse
             {
-                 TemperatureReading = new ControlParameter(temperature),
-                  ApplianceResponseTimestamp = applianceResponseTimestamp,
+                TemperatureReading = new ControlParameter(temperature),
+                ApplianceResponseTimestamp = applianceResponseTimestamp,
             };
 
         }
 
         Query.GetTargetTemperatureResponse ProgressMessage(Query.GetTargetTemperatureRequest request)
         {
-            LogLine("Action: GetTargetTemperature");
+            LogInfo("Action: GetTargetTemperature");
             float targetTemperature;
             TemperatureModeData temperatureMode;
             DateTime applianceResponseTimestamp;
@@ -258,7 +273,7 @@ namespace Alexa.ConnectedHome
 
         Control.SetTargetTemperatureConfirmation ProgressMessage(Control.SetTargetTemperatureRequest request)
         {
-            LogLine("Action: SetTargetTemperature");
+            LogInfo("Action: SetTargetTemperature");
             TemperatureState currentState, previousState;
             SetTargetTemperature(request.AccessToken, request.Appliance, (float)request.TargetTemperature.Value,
                 out currentState, out previousState);
@@ -267,13 +282,13 @@ namespace Alexa.ConnectedHome
             {
                 TargetTemperature = currentState.TargetTemperature,
                 TemperatureMode = currentState.Mode,
-                PreviousState =  previousState,
+                PreviousState = previousState,
             };
         }
 
         Control.IncrementTargetTemperatureConfirmation ProgressMessage(Control.IncrementTargetTemperatureRequest request)
         {
-            LogLine("Action: IncrementTargetTemperature");
+            LogInfo("Action: IncrementTargetTemperature");
             TemperatureState currentState, previousState;
             IncrementTargetTemperature(request.AccessToken, request.Appliance, (float)request.DeltaTemperature.Value,
                 out currentState, out previousState);
@@ -288,7 +303,7 @@ namespace Alexa.ConnectedHome
 
         Control.DecrementTargetTemperatureConfirmation ProgressMessage(Control.DecrementTargetTemperatureRequest request)
         {
-            LogLine("Action: DecrementTargetTemperature");
+            LogInfo("Action: DecrementTargetTemperature");
             TemperatureState currentState, previousState;
             DecrementTargetTemperature(request.AccessToken, request.Appliance, (float)request.DeltaTemperature.Value,
                 out currentState, out previousState);
@@ -303,31 +318,134 @@ namespace Alexa.ConnectedHome
 
         Control.SetPercentageConfirmation ProgressMessage(Control.SetPercentageRequest request)
         {
-            LogLine("Action: SetPercentage");
+            LogInfo("Action: SetPercentage");
             SetPercentage(request.AccessToken, request.Appliance, (float)request.PercentageState.Value);
             return new Control.SetPercentageConfirmation { };
         }
 
         Control.IncrementPercentageConfirmation ProgressMessage(Control.IncrementPercentageRequest request)
         {
-            LogLine("Action: IncrementPercentage");
+            LogInfo("Action: IncrementPercentage");
             IncrementPercentage(request.AccessToken, request.Appliance, (float)request.DeltaPercentage.Value);
             return new Control.IncrementPercentageConfirmation { };
         }
 
         Control.DecrementPercentageConfirmation ProgressMessage(Control.DecrementPercentageRequest request)
         {
-            LogLine("Action: DecrementPercentage");
+            LogInfo("Action: DecrementPercentage");
             DecrementPercentage(request.AccessToken, request.Appliance, (float)request.DeltaPercentage.Value);
             return new Control.DecrementPercentageConfirmation { };
         }
 
         Alexa.ConnectedHome.System.HealthCheckResponse ProgressMessage(Alexa.ConnectedHome.System.HealthCheckRequest request)
         {
-            LogLine("Action: HealthCheck");
+            LogInfo("Action: HealthCheck");
             string description;
             bool isHealthy = HealthCheck(long.Parse(request.InitiationTimestamp), out description);
             return new System.HealthCheckResponse(isHealthy, description);
+        }
+    }
+
+    public class SmartHomeHandler : AbstractSmartHomeHandler
+    {
+        protected override ApplianceDetails[] DiscoverAppliances(string accessToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        //On/Off Messages
+        protected override void TurnOn(string accessToken, Appliance appliance)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void TurnOff(string accessToken, Appliance appliance)
+        {
+            throw new NotImplementedException();
+        }
+
+        //Tunable Lighting Control Messages
+
+        protected override LightColor SetColor(string accessToken, Appliance appliance, LightColor color)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override float SetColorTemperature(string accessToken, Appliance appliance, float colorTemperature)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        protected override float IncrementColorTemperature(string accessToken, Appliance appliance)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override float DecrementColorTemperature(string accessToken, Appliance appliance)
+        {
+            throw new NotImplementedException();
+        }
+
+        //Door Lock Control and Query Messages 
+
+        protected override string GetLockState(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override string SetLockState(string accessToken, Appliance appliance, string lockState)
+        {
+            throw new NotImplementedException();
+        }
+
+        //Temperature Control and Query Messages
+        protected override float GetTemperatureReading(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void GetTargetTemperature(string accessToken, Appliance appliance, out float targetTemperature, out TemperatureModeData temperatureMode, out DateTime applianceResponseTimestamp)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SetTargetTemperature(string accessToken, Appliance appliance, float targetTemperature, out TemperatureState currentState, out TemperatureState previousState)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void IncrementTargetTemperature(string accessToken, Appliance appliance, float deltaTemperature, out TemperatureState currentState, out TemperatureState previousState)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void DecrementTargetTemperature(string accessToken, Appliance appliance, float deltaTemperature, out TemperatureState currentState, out TemperatureState previousState)
+        {
+            throw new NotImplementedException();
+        }
+
+        //Percentage Messages
+
+        protected override void SetPercentage(string accessToken, Appliance appliance, float percentage)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void IncrementPercentage(string accessToken, Appliance appliance, float deltaPercentage)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void DecrementPercentage(string accessToken, Appliance appliance, float deltaPercentage)
+        {
+            throw new NotImplementedException();
+        }
+
+        //Health Check Messages
+        protected override bool HealthCheck(long initiationTimestamp, out string description)
+        {
+            throw new NotImplementedException();
         }
     }
 }
