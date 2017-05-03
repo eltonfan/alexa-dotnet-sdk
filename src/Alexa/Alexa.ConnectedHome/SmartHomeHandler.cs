@@ -37,17 +37,22 @@ namespace Alexa.ConnectedHome
             Log(LogLevel.Error, format, arguments);
         }
 
-        protected Message ProgressMessage(string requestJsonString)
+        public void ProcessRequest(SmartHomeContext context)
         {
-            return ProgressMessage(MessageFactory.Parse(requestJsonString));
+            Message request = context.Request;
+            if(request == null)
+            {
+                request = MessageFactory.Parse(context.RequestJsonString);
+            }
+            var response = ProcessRequest(request);
+            context.Response = response;
+        }
+        public Message Handle(JObject requestObj)
+        {
+            return ProcessRequest(MessageFactory.Parse(requestObj));
         }
 
-        protected Message ProgressMessage(JObject requestObj)
-        {
-            return ProgressMessage(MessageFactory.Parse(requestObj));
-        }
-
-        protected Message ProgressMessage(Message request)
+        public Message ProcessRequest(Message request)
         {
             MessagePayload payload = request.Payload;
             MessagePayload response = null;
