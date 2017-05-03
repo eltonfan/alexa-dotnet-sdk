@@ -47,7 +47,7 @@ namespace Alexa.ConnectedHome
             var response = ProcessRequest(request);
             context.Response = response;
         }
-        public Message Handle(JObject requestObj)
+        public Message ProcessRequest(JObject requestObj)
         {
             return ProcessRequest(MessageFactory.Parse(requestObj));
         }

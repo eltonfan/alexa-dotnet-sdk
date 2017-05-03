@@ -15,7 +15,7 @@ namespace Alexa.ConnectedHome.Samples
             if (instance == null)
                 instance = new DemoSmartHomeHandler();
             instance.SetContext(context);
-            return instance.Handle(input);
+            return instance.ProcessRequest(input);
         }
 
         ILambdaContext context = null;
