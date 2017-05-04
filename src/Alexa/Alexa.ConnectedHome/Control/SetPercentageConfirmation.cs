@@ -1,6 +1,6 @@
 ﻿namespace Alexa.ConnectedHome.Control
 {
-    public class SetPercentageConfirmation : MessagePayload
+    public class SetPercentageConfirmation : ControlResponse
     {
     }
 }

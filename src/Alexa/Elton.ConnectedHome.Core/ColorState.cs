@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Alexa.ConnectedHome
+namespace Elton.ConnectedHome
 {
-    public class LightColor
+    public class ColorState
     {
         [JsonProperty("hue")]
         public float Hue { get; set; }
@@ -11,9 +11,9 @@ namespace Alexa.ConnectedHome
         [JsonProperty("brightness")]
         public float Brightness { get; set; }
 
-        public LightColor() { }
+        public ColorState() { }
 
-        public LightColor(float hue, float saturation, float brightness)
+        public ColorState(float hue, float saturation, float brightness)
         {
             this.Hue = hue;
             this.Saturation = saturation;

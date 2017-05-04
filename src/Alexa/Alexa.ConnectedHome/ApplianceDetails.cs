@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Elton.ConnectedHome;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 
@@ -7,8 +8,8 @@ namespace Alexa.ConnectedHome
     [JsonObject]
     public class ApplianceDetails
     {
-        [JsonProperty("actions")]//, JsonConverter(typeof(StringEnumConverter))]
-        public string[] Actions { get; set; }
+        [JsonProperty("actions", ItemConverterType = typeof(StringEnumConverter))]
+        public ActionType[] Actions { get; set; }
         [JsonProperty("additionalApplianceDetails")]
         public Dictionary<string, string> AdditionalApplianceDetails { get; set; }
         [JsonProperty("applianceId")]

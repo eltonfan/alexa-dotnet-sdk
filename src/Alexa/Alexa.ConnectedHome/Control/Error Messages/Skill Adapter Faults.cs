@@ -9,7 +9,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// Indicates a generic runtime error within the skill adapter. When possible, a more specific error should be returned.
     /// </summary>
-    public class DriverInternalError : MessagePayload
+    public class DriverInternalError : ControlResponse
     {
     }
     /* {
@@ -26,7 +26,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     ///  Indicates that a skill adapter dependency is unavailable and the skill adapter cannot complete the request.
     /// </summary>
-    public class DependentServiceUnavailableError : MessagePayload
+    public class DependentServiceUnavailableError : ControlResponse
     {
         public string dependentServiceName { get; set; }
     }
@@ -46,7 +46,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// Indicates the cloud-connectivity for the target device is not stable and reliable.
     /// </summary>
-    public class TargetConnectivityUnstableError : MessagePayload
+    public class TargetConnectivityUnstableError : ControlResponse
     {
     }
     /*{
@@ -63,7 +63,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// Indicates that cloud-connectivity for a home automation hub or bridge that connects the target device is unstable and unreliable.
     /// </summary>
-    public class TargetBridgeConnectivityUnstableError : MessagePayload
+    public class TargetBridgeConnectivityUnstableError : ControlResponse
     {
     }
     /*{
@@ -81,7 +81,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// Indicates that the target device has outdated firmware.
     /// </summary>
-    public class TargetFirmwareOutdatedError : MessagePayload
+    public class TargetFirmwareOutdatedError : ControlResponse
     {
         /// <summary>
         /// Alphanumeric value indicating minimum allowed firmware version. Maximum of 256 characters.
@@ -109,7 +109,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// 
     /// </summary>
-    public class TargetBridgeFirmwareOutdatedError : MessagePayload
+    public class TargetBridgeFirmwareOutdatedError : ControlResponse
     {
         /// <summary>
         /// Alphanumeric value indicating minimum allowed firmware version. Maximum of 256 characters.
@@ -136,7 +136,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// Indicates that the target device experienced a hardware malfunction.
     /// </summary>
-    public class TargetHardwareMalfunctionError : MessagePayload
+    public class TargetHardwareMalfunctionError : ControlResponse
     {
     }
     /*  {
@@ -152,7 +152,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// Indicates that the home automation hub or bridge connecting the target device experienced a hardware malfunction.
     /// </summary>
-    public class TargetBridgetHardwareMalfunctionError : MessagePayload
+    public class TargetBridgetHardwareMalfunctionError : ControlResponse
     {
     }
     /* {
@@ -188,7 +188,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// 
     /// </summary>
-    public class UnwillingToSetValueError : MessagePayload
+    public class UnwillingToSetValueError : ControlResponse
     {
         public ErrorInfo errorInfo { get; set; }
     }
@@ -210,7 +210,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// Indicates that the maximum number of requests that a device accepts has been exceeded. This message provides information about the maximum number of requests for a device and the time unit for those requests. For example, if a device accepts four requests per hour, the message should specify 4 and HOUR as rateLimit and timeUnit, respectively.
     /// </summary>
-    public class RateLimitExceededError : MessagePayload
+    public class RateLimitExceededError : ControlResponse
     {
         /// <summary>
         /// An integer that represents the maximum number of requests a device will accept in the specifed time unit.
@@ -238,7 +238,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// Indicates that the target device is in a mode in which it cannot be controlled with the Smart Home Skill API, and provides information about the current mode of the device.
     /// </summary>
-    public class NotSupportedInCurrentModeError : MessagePayload
+    public class NotSupportedInCurrentModeError : ControlResponse
     {
         /// <summary>
         /// A string that represents the current mode of the device. Valid values are AUTO, COOL, HEAT, AWAY, and OTHER.

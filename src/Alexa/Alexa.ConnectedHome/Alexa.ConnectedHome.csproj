@@ -23,6 +23,11 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Elton.ConnectedHome.Core\Elton.ConnectedHome.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

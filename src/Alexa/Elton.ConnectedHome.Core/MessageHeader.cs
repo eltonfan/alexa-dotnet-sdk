@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Alexa.ConnectedHome
+namespace Elton.ConnectedHome
 {
     /// <summary>
     /// The directive header.

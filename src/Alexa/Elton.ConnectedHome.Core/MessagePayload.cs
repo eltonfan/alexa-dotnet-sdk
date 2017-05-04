@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Alexa.ConnectedHome
+﻿namespace Elton.ConnectedHome
 {
     /// <summary>
     /// The payload for a skill adapter directive.

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Elton.ConnectedHome;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -119,13 +120,13 @@ namespace Alexa.ConnectedHome
         protected abstract void TurnOn(string accessToken, Appliance appliance);
         protected abstract void TurnOff(string accessToken, Appliance appliance);
         //Tunable Lighting Control Messages
-        protected abstract LightColor SetColor(string accessToken, Appliance appliance, LightColor color);
+        protected abstract ColorState SetColor(string accessToken, Appliance appliance, ColorState color);
         protected abstract int SetColorTemperature(string accessToken, Appliance appliance, int colorTemperature);
         protected abstract int IncrementColorTemperature(string accessToken, Appliance appliance);
         protected abstract int DecrementColorTemperature(string accessToken, Appliance appliance);
         //Door Lock Control and Query Messages 
-        protected abstract ApplianceLockState GetLockState(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp);
-        protected abstract ApplianceLockState SetLockState(string accessToken, Appliance appliance, ApplianceLockState lockState);
+        protected abstract LockState GetLockState(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp);
+        protected abstract LockState SetLockState(string accessToken, Appliance appliance, LockState lockState);
         //Temperature Control and Query Messages
         protected abstract float GetTemperatureReading(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp);
         protected abstract void GetTargetTemperature(string accessToken, Appliance appliance,
@@ -368,7 +369,7 @@ namespace Alexa.ConnectedHome
 
         //Tunable Lighting Control Messages
 
-        protected override LightColor SetColor(string accessToken, Appliance appliance, LightColor color)
+        protected override ColorState SetColor(string accessToken, Appliance appliance, ColorState color)
         {
             throw new NotImplementedException();
         }
@@ -391,12 +392,12 @@ namespace Alexa.ConnectedHome
 
         //Door Lock Control and Query Messages 
 
-        protected override ApplianceLockState GetLockState(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp)
+        protected override LockState GetLockState(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp)
         {
             throw new NotImplementedException();
         }
 
-        protected override ApplianceLockState SetLockState(string accessToken, Appliance appliance, ApplianceLockState lockState)
+        protected override LockState SetLockState(string accessToken, Appliance appliance, LockState lockState)
         {
             throw new NotImplementedException();
         }

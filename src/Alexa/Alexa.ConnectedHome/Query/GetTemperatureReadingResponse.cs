@@ -3,7 +3,7 @@ using System;
 
 namespace Alexa.ConnectedHome.Query
 {
-    public class GetTemperatureReadingResponse : MessagePayload
+    public class GetTemperatureReadingResponse : ControlResponse
     {
         [JsonProperty("temperatureReading")]
         public ControlParameter<float> TemperatureReading { get; set; }

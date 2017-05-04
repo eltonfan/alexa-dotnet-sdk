@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Elton.ConnectedHome;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -72,7 +73,7 @@ namespace Alexa.ConnectedHome
 
         //Tunable Lighting Control Messages
 
-        public LightColor SetColor(string accessToken, Appliance appliance, LightColor color)
+        public ColorState SetColor(string accessToken, Appliance appliance, ColorState color)
         {
             LogInfo("Action: SetColor");
 
@@ -133,7 +134,7 @@ namespace Alexa.ConnectedHome
 
         //Door Lock Control and Query Messages 
 
-        public ApplianceLockState GetLockState(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp)
+        public LockState GetLockState(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp)
         {
             LogInfo("Action: GetLockState");
 
@@ -148,7 +149,7 @@ namespace Alexa.ConnectedHome
             return response.LockState;
         }
 
-        public ApplianceLockState SetLockState(string accessToken, Appliance appliance, ApplianceLockState lockState)
+        public LockState SetLockState(string accessToken, Appliance appliance, LockState lockState)
         {
             LogInfo("Action: SetLockState");
 

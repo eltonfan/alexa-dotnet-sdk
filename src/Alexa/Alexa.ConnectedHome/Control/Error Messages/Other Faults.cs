@@ -9,7 +9,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// Indicates that the access token used for authentication has expired and is no longer valid.
     /// </summary>
-    public class ExpiredAccessTokenError : MessagePayload
+    public class ExpiredAccessTokenError : ControlResponse
     {
     }
     /*{
@@ -26,7 +26,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// Indicates that the access token used for authentication is not valid for a reason other than it has expired.
     /// </summary>
-    public class InvalidAccessTokenError : MessagePayload
+    public class InvalidAccessTokenError : ControlResponse
     {
     }
     /*
@@ -44,7 +44,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// Indicates that the target device is not supported by the skill adapter.
     /// </summary>
-    public class UnsupportedTargetError : MessagePayload
+    public class UnsupportedTargetError : ControlResponse
     {
     }
     /*{
@@ -61,7 +61,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// Indicates that the requested operation is not supported on the target device.
     /// </summary>
-    public class UnsupportedOperationError : MessagePayload
+    public class UnsupportedOperationError : ControlResponse
     {
     }
     /*{
@@ -78,7 +78,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// Indicates that the requested setting is not valid for the specified device and operation.
     /// </summary>
-    public class UnsupportedTargetSettingError : MessagePayload
+    public class UnsupportedTargetSettingError : ControlResponse
     {
     }
     /*{
@@ -95,7 +95,7 @@ namespace Alexa.ConnectedHome.Control
     /// <summary>
     /// The request message or payload could not be handled by the skill adapter because it was malformed.
     /// </summary>
-    public class UnexpectedInformationReceivedError : MessagePayload
+    public class UnexpectedInformationReceivedError : ControlResponse
     {
         /// <summary>
         /// The property or field in the request message that was malformed or unexpected, and could not be handled by the skill adapter.

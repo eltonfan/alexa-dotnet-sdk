@@ -4,9 +4,8 @@ using System.Text;
 
 namespace Alexa.ConnectedHome
 {
-    public enum ApplianceLockState
+    public class AchievedState
     {
-        LOCKED,
-        UNLOCKED,
+
     }
 }

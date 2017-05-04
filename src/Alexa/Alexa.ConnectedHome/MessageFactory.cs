@@ -1,14 +1,11 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Elton.ConnectedHome;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Alexa.ConnectedHome
 {
-    public class MessageFactory
+    public class MessageFactory : Elton.ConnectedHome.MessageFactory
     {
         static MessageFactory instance;
 
@@ -23,173 +20,101 @@ namespace Alexa.ConnectedHome
             }
         }
 
-
-        public const string PAYLOAD_VERSION = "2";
-
-        readonly Dictionary<string, Type> dicTypes = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
         private MessageFactory()
         {
-            Type[] array = new Type[] {
-                //Discovery Messages
-                typeof(Discovery.DiscoverAppliancesRequest),
-                typeof(Discovery.DiscoverAppliancesResponse),
+            //Discovery Messages
+            AddPayloadType(typeof(Discovery.DiscoverAppliancesRequest), "2");
+            AddPayloadType(typeof(Discovery.DiscoverAppliancesResponse), "2");
 
-                //On/Off Messages
-                typeof(Control.TurnOnRequest),
-                typeof(Control.TurnOnConfirmation),
-                typeof(Control.TurnOffRequest),
-                typeof(Control.TurnOffConfirmation),
+            //On/Off Messages
+            AddPayloadType(typeof(Control.TurnOnRequest), "2");
+            AddPayloadType(typeof(Control.TurnOnConfirmation), "2");
+            AddPayloadType(typeof(Control.TurnOffRequest), "2");
+            AddPayloadType(typeof(Control.TurnOffConfirmation), "2");
 
-                //Tunable Lighting Control Messages
-                typeof(Control.SetColorRequest),
-                typeof(Control.SetColorConfirmation),
-                typeof(Control.SetColorTemperatureRequest),
-                typeof(Control.SetColorTemperatureConfirmation),
-                typeof(Control.IncrementColorTemperatureRequest),
-                typeof(Control.IncrementColorTemperatureConfirmation),
-                typeof(Control.DecrementColorTemperatureRequest),
-                typeof(Control.DecrementColorTemperatureConfirmation),
+            //Tunable Lighting Control Messages
+            AddPayloadType(typeof(Control.SetColorRequest), "2");
+            AddPayloadType(typeof(Control.SetColorConfirmation), "2");
+            AddPayloadType(typeof(Control.SetColorTemperatureRequest), "2");
+            AddPayloadType(typeof(Control.SetColorTemperatureConfirmation), "2");
+            AddPayloadType(typeof(Control.IncrementColorTemperatureRequest), "2");
+            AddPayloadType(typeof(Control.IncrementColorTemperatureConfirmation), "2");
+            AddPayloadType(typeof(Control.DecrementColorTemperatureRequest), "2");
+            AddPayloadType(typeof(Control.DecrementColorTemperatureConfirmation), "2");
 
-                //Door Lock Control and Query Messages 
-                typeof(Query.GetLockStateRequest),
-                typeof(Query.GetLockStateResponse),
-                typeof(Control.SetLockStateRequest),
-                typeof(Control.SetLockStateConfirmation),
+            //Door Lock Control and Query Messages 
+            AddPayloadType(typeof(Query.GetLockStateRequest), "2");
+            AddPayloadType(typeof(Query.GetLockStateResponse), "2");
+            AddPayloadType(typeof(Control.SetLockStateRequest), "2");
+            AddPayloadType(typeof(Control.SetLockStateConfirmation), "2");
 
-                //Temperature Control and Query Messages
-                typeof(Query.GetTemperatureReadingRequest),
-                typeof(Query.GetTemperatureReadingResponse),
-                typeof(Query.GetTargetTemperatureRequest),
-                typeof(Query.GetTargetTemperatureResponse),
-                typeof(Control.SetTargetTemperatureRequest),
-                typeof(Control.SetTargetTemperatureConfirmation),
-                typeof(Control.IncrementTargetTemperatureRequest),
-                typeof(Control.IncrementTargetTemperatureConfirmation),
-                typeof(Control.DecrementTargetTemperatureRequest),
-                typeof(Control.DecrementTargetTemperatureConfirmation),
+            //Temperature Control and Query Messages
+            AddPayloadType(typeof(Query.GetTemperatureReadingRequest), "2");
+            AddPayloadType(typeof(Query.GetTemperatureReadingResponse), "2");
+            AddPayloadType(typeof(Query.GetTargetTemperatureRequest), "2");
+            AddPayloadType(typeof(Query.GetTargetTemperatureResponse), "2");
+            AddPayloadType(typeof(Control.SetTargetTemperatureRequest), "2");
+            AddPayloadType(typeof(Control.SetTargetTemperatureConfirmation), "2");
+            AddPayloadType(typeof(Control.IncrementTargetTemperatureRequest), "2");
+            AddPayloadType(typeof(Control.IncrementTargetTemperatureConfirmation), "2");
+            AddPayloadType(typeof(Control.DecrementTargetTemperatureRequest), "2");
+            AddPayloadType(typeof(Control.DecrementTargetTemperatureConfirmation), "2");
 
-                //Percentage Messages
-                typeof(Control.SetPercentageRequest),
-                typeof(Control.SetPercentageConfirmation),
-                typeof(Control.IncrementPercentageRequest),
-                typeof(Control.IncrementPercentageConfirmation),
-                typeof(Control.DecrementPercentageRequest),
-                typeof(Control.DecrementPercentageConfirmation),
+            //Percentage Messages
+            AddPayloadType(typeof(Control.SetPercentageRequest), "2");
+            AddPayloadType(typeof(Control.SetPercentageConfirmation), "2");
+            AddPayloadType(typeof(Control.IncrementPercentageRequest), "2");
+            AddPayloadType(typeof(Control.IncrementPercentageConfirmation), "2");
+            AddPayloadType(typeof(Control.DecrementPercentageRequest), "2");
+            AddPayloadType(typeof(Control.DecrementPercentageConfirmation), "2");
 
-                //Health Check Messages
-                typeof(Alexa.ConnectedHome.System.HealthCheckRequest),
-                typeof(Alexa.ConnectedHome.System.HealthCheckResponse),
+            //Health Check Messages
+            AddPayloadType(typeof(Alexa.ConnectedHome.System.HealthCheckRequest), "2");
+            AddPayloadType(typeof(Alexa.ConnectedHome.System.HealthCheckResponse), "2");
 
-                //Error Messages - User Faults
-                typeof(Control.ValueOutOfRangeError),
-                typeof(Control.TargetOfflineError),
-                typeof(Control.BridgeOfflineError),
-                typeof(Control.NoSuchTargetError),
+            //Error Messages - User Faults
+            AddPayloadType(typeof(Control.ValueOutOfRangeError), "2");
+            AddPayloadType(typeof(Control.TargetOfflineError), "2");
+            AddPayloadType(typeof(Control.BridgeOfflineError), "2");
+            AddPayloadType(typeof(Control.NoSuchTargetError), "2");
                 
-                //Error Messages - Skill Adapter Faults
-                typeof(Control.DriverInternalError),
-                typeof(Control.DependentServiceUnavailableError),
-                typeof(Control.TargetConnectivityUnstableError),
-                typeof(Control.TargetBridgeConnectivityUnstableError),
-                typeof(Control.TargetFirmwareOutdatedError),
-                typeof(Control.TargetBridgeFirmwareOutdatedError),
-                typeof(Control.TargetHardwareMalfunctionError),
-                typeof(Control.TargetBridgetHardwareMalfunctionError),
-                typeof(Control.UnwillingToSetValueError),
-                typeof(Control.RateLimitExceededError),
-                typeof(Control.NotSupportedInCurrentModeError),
+            //Error Messages - Skill Adapter Faults
+            AddPayloadType(typeof(Control.DriverInternalError), "2");
+            AddPayloadType(typeof(Control.DependentServiceUnavailableError), "2");
+            AddPayloadType(typeof(Control.TargetConnectivityUnstableError), "2");
+            AddPayloadType(typeof(Control.TargetBridgeConnectivityUnstableError), "2");
+            AddPayloadType(typeof(Control.TargetFirmwareOutdatedError), "2");
+            AddPayloadType(typeof(Control.TargetBridgeFirmwareOutdatedError), "2");
+            AddPayloadType(typeof(Control.TargetHardwareMalfunctionError), "2");
+            AddPayloadType(typeof(Control.TargetBridgetHardwareMalfunctionError), "2");
+            AddPayloadType(typeof(Control.UnwillingToSetValueError), "2");
+            AddPayloadType(typeof(Control.RateLimitExceededError), "2");
+            AddPayloadType(typeof(Control.NotSupportedInCurrentModeError), "2");
 
-                //Error Messages - Other Faults
-                typeof(Control.ExpiredAccessTokenError),
-                typeof(Control.InvalidAccessTokenError),
-                typeof(Control.UnsupportedTargetError),
-                typeof(Control.UnsupportedOperationError),
-                typeof(Control.UnsupportedTargetSettingError),
-                typeof(Control.UnexpectedInformationReceivedError),
-
-                //Custom
-                typeof(Elton.ConnectedHome.Messaging.EventReport),
-                typeof(Elton.ConnectedHome.Messaging.HeartbeatReport),
-            };
-
-            foreach (var item in array)
-            {
-                dicTypes.Add(item.FullName, item);
-            }
-        }
-
-        public void AddSupportedMessage(Type messageType)
-        {
-            if (dicTypes.ContainsKey(messageType.FullName))
-                return;
-            dicTypes.Add(messageType.FullName, messageType);
-        }
-
-        public IEnumerable<Type> SupportedMessages
-        {
-            get { return dicTypes.Values; }
-        }
-
-        protected Message ParseMessage(string jsonString)
-        {
-            JObject obj = JObject.Parse(jsonString);
-
-            return ParseMessage(obj);
-        }
-        protected Message ParseMessage(JObject obj)
-        {
-            MessageHeader header = obj["header"].ToObject<MessageHeader>();
-            string fullName = header.FullName;
-            if (!dicTypes.ContainsKey(fullName))
-                return null;
-
-            Type messageType = dicTypes[fullName];
-            MessagePayload payload = obj["payload"].ToObject(messageType) as MessagePayload;
-
-            Message message = new Message
-            {
-                Header = header,
-                Payload = payload,
-            };
-
-            return message;
-        }
-
-        protected Message CreateMessage(MessagePayload payload)
-        {
-            Type type = payload.GetType();
-            Message message = new Message
-            {
-                Header = new MessageHeader
-                {
-                    MessageId = Guid.NewGuid(),
-                    Namespace = type.Namespace,
-                    Name = type.Name,
-                    PayloadVersion = PAYLOAD_VERSION,
-                },
-                Payload = payload,
-            };
-
-            return message;
-        }
-        protected string FormatMessage(MessagePayload payload)
-        {
-            Message message = CreateMessage(payload);
-            return JsonConvert.SerializeObject(message);
+            //Error Messages - Other Faults
+            AddPayloadType(typeof(Control.ExpiredAccessTokenError), "2");
+            AddPayloadType(typeof(Control.InvalidAccessTokenError), "2");
+            AddPayloadType(typeof(Control.UnsupportedTargetError), "2");
+            AddPayloadType(typeof(Control.UnsupportedOperationError), "2");
+            AddPayloadType(typeof(Control.UnsupportedTargetSettingError), "2");
+            AddPayloadType(typeof(Control.UnexpectedInformationReceivedError), "2");
         }
 
         public static Message Parse(string jsonString)
         {
             return Default.ParseMessage(jsonString);
         }
-        public static Message Parse(JObject obj)
+
+        public static Message Parse(Newtonsoft.Json.Linq.JObject obj)
         {
             return Default.ParseMessage(obj);
         }
+
         public static Message Create(MessagePayload payload)
         {
             return Default.CreateMessage(payload);
         }
+
         public static string Format(MessagePayload payload)
         {
             return Default.FormatMessage(payload);
@@ -197,7 +122,7 @@ namespace Alexa.ConnectedHome
 
         public static string Format(Message message)
         {
-            return JsonConvert.SerializeObject(message);
+            return Default.FormatMessage(message);
         }
     }
 }

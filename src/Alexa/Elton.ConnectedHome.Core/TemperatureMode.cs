@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using System.Runtime.Serialization;
 
-namespace Alexa.ConnectedHome
+namespace Elton.ConnectedHome
 {
     /// <summary>
     /// A string indicating the temperature mode set by the device.
@@ -11,26 +10,32 @@ namespace Alexa.ConnectedHome
         /// <summary>
         /// Indicates automatic heat/cool selection
         /// </summary>
-        AUTO,
+        [EnumMember(Value = "AUTO")]
+        Automatic,
         /// <summary>
         /// Indicates Cooling mode
         /// </summary>
-        COOL,
+        [EnumMember(Value = "COOL")]
+        Cooling,
         /// <summary>
         /// Indicates heating mode
         /// </summary>
-        HEAT,
+        [EnumMember(Value = "HEAT")]
+        Heating,
         /// <summary>
         /// Indicates economical mode
         /// </summary>
-        ECO,
+        [EnumMember(Value = "ECO")]
+        Economical,
         /// <summary>
         /// Indicates heating/cooling is turned off, although device may still have power
         /// </summary>
-        OFF,
+        [EnumMember(Value = "OFF")]
+        Off,
         /// <summary>
         /// Indicates a custom mode that is specified by friendlyName
         /// </summary>
-        CUSTOM,
+        [EnumMember(Value = "CUSTOM")]
+        Custom,
     }
 }

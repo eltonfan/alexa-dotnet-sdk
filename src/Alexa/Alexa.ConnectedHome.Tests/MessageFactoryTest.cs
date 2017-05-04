@@ -43,10 +43,10 @@ namespace Alexa.ConnectedHome.Tests
             return File.ReadAllText(fileName, Encoding.UTF8);
         }
 
-        void TestMessageParseAndFormat(Type payloadType)
+        void TestMessage(Type payloadType)
         {
             string jsonString = ReadExampleJsonString(payloadType);
-            Message message = MessageFactory.Parse(jsonString);
+            var message = MessageFactory.Parse(jsonString);
             Assert.IsNotNull(message, "Failed to parse message '{0}'.", payloadType.FullName);
             Assert.AreEqual(message.Payload.GetType(), payloadType);
 
@@ -59,7 +59,7 @@ namespace Alexa.ConnectedHome.Tests
         {
             foreach (Type type in payloadTypes)
             {
-                TestMessageParseAndFormat(type);
+                TestMessage(type);
             }
         }
 
@@ -67,9 +67,8 @@ namespace Alexa.ConnectedHome.Tests
         public void TestDiscoveryMessages()
         {
             //Discovery Messages
-            TestMessages(
-                typeof(Discovery.DiscoverAppliancesRequest),
-                typeof(Discovery.DiscoverAppliancesResponse));
+            TestMessage(typeof(Discovery.DiscoverAppliancesRequest));
+            TestMessage(typeof(Discovery.DiscoverAppliancesResponse));
         }
 
         [TestMethod]
@@ -154,7 +153,7 @@ namespace Alexa.ConnectedHome.Tests
         public void TestAllMessage()
         {
             foreach (Type messageType in MessageFactory.Default.SupportedMessages)
-                TestMessageParseAndFormat(messageType);
+                TestMessage(messageType);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Elton.ConnectedHome;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,13 +11,13 @@ namespace Alexa.ConnectedHome
         void TurnOn(string accessToken, Appliance appliance);
         void TurnOff(string accessToken, Appliance appliance);
         //Tunable Lighting Control Messages
-        LightColor SetColor(string accessToken, Appliance appliance, LightColor color);
+        ColorState SetColor(string accessToken, Appliance appliance, ColorState color);
         int SetColorTemperature(string accessToken, Appliance appliance, int colorTemperature);
         int IncrementColorTemperature(string accessToken, Appliance appliance);
         int DecrementColorTemperature(string accessToken, Appliance appliance);
         //Door Lock Control and Query Messages 
-        ApplianceLockState GetLockState(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp);
-        ApplianceLockState SetLockState(string accessToken, Appliance appliance, ApplianceLockState lockState);
+        LockState GetLockState(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp);
+        LockState SetLockState(string accessToken, Appliance appliance, LockState lockState);
         //Temperature Control and Query Messages
         float GetTemperatureReading(string accessToken, Appliance appliance, out DateTime applianceResponseTimestamp);
         void GetTargetTemperature(string accessToken, Appliance appliance,

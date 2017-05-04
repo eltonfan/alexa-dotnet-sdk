@@ -2,7 +2,7 @@
 
 namespace Alexa.ConnectedHome.Control
 {
-    public class SetTargetTemperatureConfirmation : MessagePayload
+    public class SetTargetTemperatureConfirmation : ControlResponse
     {
         [JsonProperty("targetTemperature")]
         public ControlParameter<float> TargetTemperature { get; set; }

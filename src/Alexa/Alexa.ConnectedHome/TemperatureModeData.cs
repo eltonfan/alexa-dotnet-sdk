@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Elton.ConnectedHome;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace Alexa.ConnectedHome

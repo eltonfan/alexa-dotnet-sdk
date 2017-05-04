@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Alexa.ConnectedHome.Control
 {
-    public class ValueOutOfRangeError : MessagePayload
+    public class ValueOutOfRangeError : ControlResponse
     {
         /// <summary>
         /// A 64-bit  double indicating the lowest value allowed for the target device setting.
@@ -34,7 +34,7 @@ namespace Alexa.ConnectedHome.Control
 
 
 
-    public class TargetOfflineError : MessagePayload
+    public class TargetOfflineError : ControlResponse
     {
     }
     /*
@@ -50,7 +50,7 @@ namespace Alexa.ConnectedHome.Control
     }*/
 
 
-    public class BridgeOfflineError : MessagePayload
+    public class BridgeOfflineError : ControlResponse
     {
     }
     /*
@@ -66,7 +66,7 @@ namespace Alexa.ConnectedHome.Control
     }*/
 
 
-    public class NoSuchTargetError : MessagePayload
+    public class NoSuchTargetError : ControlResponse
     {
     }
     /* {

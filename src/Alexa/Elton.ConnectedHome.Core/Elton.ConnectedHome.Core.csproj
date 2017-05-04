@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <Authors>Elton FAN</Authors>
+    <Product>Alexa SDK for DotNet</Product>
+    <Description>Alexa SDK for DotNet. https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/smart-home-skill-api-reference</Description>
+    <Copyright>chuangen@live.com; http://chuangen.name</Copyright>
+    <RootNamespace>Elton.ConnectedHome</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.1.1" />
+  </ItemGroup>
+
+</Project>

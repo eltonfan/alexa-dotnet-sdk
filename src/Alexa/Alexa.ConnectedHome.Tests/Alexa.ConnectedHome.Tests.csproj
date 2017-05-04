@@ -52,6 +52,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Primitives, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Serialization.Primitives.4.1.1\lib\net46\System.Runtime.Serialization.Primitives.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MessageFactoryTest.cs" />
@@ -181,6 +185,10 @@
     <ProjectReference Include="..\Alexa.ConnectedHome\Alexa.ConnectedHome.csproj">
       <Project>{ff1b2b88-8b51-45e7-8d3e-a02ad883c431}</Project>
       <Name>Alexa.ConnectedHome</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elton.ConnectedHome.Core\Elton.ConnectedHome.Core.csproj">
+      <Project>{aa72771f-b846-4374-8295-3db7b9b23b19}</Project>
+      <Name>Elton.ConnectedHome.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -1,6 +1,6 @@
 ﻿namespace Alexa.ConnectedHome.Control
 {
-    public class TurnOffConfirmation : MessagePayload
+    public class TurnOffConfirmation : ControlResponse
     {
     }
 }
