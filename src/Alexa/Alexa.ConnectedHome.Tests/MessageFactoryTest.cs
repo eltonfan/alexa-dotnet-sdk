@@ -152,8 +152,8 @@ namespace Alexa.ConnectedHome.Tests
         //[TestMethod]
         public void TestAllMessage()
         {
-            foreach (Type messageType in MessageFactory.Default.SupportedMessages)
-                TestMessage(messageType);
+            foreach (var item in MessageFactory.Default.SupportedMessages)
+                TestMessage(item.Type);
         }
     }
 }

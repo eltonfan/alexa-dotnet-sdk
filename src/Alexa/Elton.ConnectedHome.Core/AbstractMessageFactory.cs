@@ -5,38 +5,28 @@ using System.Collections.Generic;
 
 namespace Elton.ConnectedHome
 {
-    public class MessageFactory
+    public abstract class AbstractMessageFactory
     {
-        public const string PAYLOAD_VERSION = "2";
-
-        readonly Dictionary<string, Type> dicTypes = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
-        public MessageFactory()
+        readonly Dictionary<string, PayloadType> dicTypes = new Dictionary<string, PayloadType>(StringComparer.OrdinalIgnoreCase);
+        public AbstractMessageFactory()
         {
         }
 
-        public Type GetPayloadType(string fullName, string payloadVersion)
+        public PayloadType GetPayloadType(string typeName, string payloadVersion)
         {
-            string key = null;
-            if (string.IsNullOrWhiteSpace(payloadVersion))
-                key = fullName;
-            else
-                key = fullName + "." + payloadVersion;
-
-            dicTypes.TryGetValue(key, out Type type);
+            string key = PayloadType.GetFullName(typeName, payloadVersion);
+            dicTypes.TryGetValue(key, out PayloadType type);
             return type;
         }
 
-        public void AddPayloadType(Type payloadType, string payloadVersion = null)
+        public void AddPayloadType(Type payloadType, string payloadVersion)
         {
-            string fullName = payloadType.FullName;
-
-            string key = null;
-            if (string.IsNullOrWhiteSpace(payloadVersion))
-                key = fullName;
+            PayloadType item = new PayloadType(payloadType, payloadVersion);
+            string fullName = item.FullName;
+            if (dicTypes.ContainsKey(fullName))
+                dicTypes[fullName] = item;
             else
-                key = fullName + "." + payloadVersion;
-
-            dicTypes.Add(key, payloadType);
+                dicTypes.Add(fullName, item);
         }
 
         public Message ParseMessage(string jsonString)
@@ -48,10 +38,10 @@ namespace Elton.ConnectedHome
         public Message ParseMessage(JObject obj)
         {
             MessageHeader header = obj["header"].ToObject<MessageHeader>();
-            Type payloadType = GetPayloadType(header.FullName, header.PayloadVersion);
+            var payloadType = GetPayloadType(header.FullName, header.PayloadVersion);
             if (payloadType == null)
                 return null;
-            MessagePayload payload = obj["payload"].ToObject(payloadType) as MessagePayload;
+            MessagePayload payload = obj["payload"].ToObject(payloadType.Type) as MessagePayload;
 
             Message message = new Message
             {
@@ -65,6 +55,19 @@ namespace Elton.ConnectedHome
         public Message CreateMessage(MessagePayload payload)
         {
             Type type = payload.GetType();
+
+            PayloadType payloadType = null;
+            foreach (var item in dicTypes.Values)
+            {
+                if(item.Type == type)
+                {
+                    payloadType = item;
+                    break;
+                }
+            }
+            if (payloadType == null)
+                throw new NotSupportedException("Not supported payload type: " + type.FullName);
+
             Message message = new Message
             {
                 Header = new MessageHeader
@@ -72,7 +75,7 @@ namespace Elton.ConnectedHome
                     MessageId = Guid.NewGuid(),
                     Namespace = type.Namespace,
                     Name = type.Name,
-                    PayloadVersion = PAYLOAD_VERSION,
+                    PayloadVersion = payloadType.Version,
                 },
                 Payload = payload,
             };
@@ -90,7 +93,7 @@ namespace Elton.ConnectedHome
             return JsonConvert.SerializeObject(message);
         }
 
-        public ICollection<Type> SupportedMessages
+        public ICollection<PayloadType> SupportedMessages
         {
             get { return dicTypes.Values; }
         }
