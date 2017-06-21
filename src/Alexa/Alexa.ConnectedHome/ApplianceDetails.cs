@@ -26,5 +26,10 @@ namespace Alexa.ConnectedHome
         public string ModelName { get; set; }
         [JsonProperty("version")]
         public string Version { get; set; }
+
+        public override string ToString()
+        {
+            return $"Appliance {FriendlyName} (id:{ApplianceId}, model:{ModelName}, desc:{FriendlyDescription})";
+        }
     }
 }
