@@ -49,5 +49,11 @@ namespace Elton.ConnectedHome
         IncrementPercentage,
         [EnumMember(Value = "decrementPercentage")]
         DecrementPercentage,
+
+        //Send Message
+        [EnumMember(Value = "sendText")]
+        SendText,
+        [EnumMember(Value = "sendImage")]
+        SendImage,
     }
 }

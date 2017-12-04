@@ -34,5 +34,8 @@ namespace Alexa.ConnectedHome
         void DecrementPercentage(string accessToken, Appliance appliance, float deltaPercentage);
         //Health Check Messages
         bool HealthCheck(long initiationTimestamp, out string description);
+        //Send Message
+        void SendText(string accessToken, Appliance appliance, string text);
+        void SendImage(string accessToken, Appliance appliance, string imageUrl);
     }
 }

@@ -103,6 +103,11 @@ namespace Alexa.ConnectedHome
                 //Health Check Messages
                 else if (payload is Alexa.ConnectedHome.System.HealthCheckRequest)
                     response = ProgressMessage(payload as Alexa.ConnectedHome.System.HealthCheckRequest);
+                //Send Message
+                else if (payload is Control.SendTextRequest)
+                    response = ProgressMessage(payload as Control.SendTextRequest);
+                else if (payload is Control.SendImageRequest)
+                    response = ProgressMessage(payload as Control.SendImageRequest);
                 else
                     throw new NotSupportedException(string.Format("Not supported message type '{0}'.", payload.GetType().FullName));
             }
@@ -143,6 +148,9 @@ namespace Alexa.ConnectedHome
         protected abstract void DecrementPercentage(string accessToken, Appliance appliance, float deltaPercentage);
         //Health Check Messages
         protected abstract bool HealthCheck(long initiationTimestamp, out string description);
+        //Send Message
+        protected abstract void SendText(string accessToken, Appliance appliance, string text);
+        protected abstract void SendImage(string accessToken, Appliance appliance, string imageUrl);
 
 
         Discovery.DiscoverAppliancesResponse ProgressMessage(Discovery.DiscoverAppliancesRequest request)
@@ -347,6 +355,20 @@ namespace Alexa.ConnectedHome
             bool isHealthy = HealthCheck(long.Parse(request.InitiationTimestamp), out description);
             return new System.HealthCheckResponse(isHealthy, description);
         }
+
+        Control.SendTextConfirmation ProgressMessage(Control.SendTextRequest request)
+        {
+            LogInfo("Action: SendTextRequest");
+            SendText(request.AccessToken, request.Appliance, request.Text);
+            return new Control.SendTextConfirmation { };
+        }
+
+        Control.SendImageConfirmation ProgressMessage(Control.SendImageRequest request)
+        {
+            LogInfo("Action: SendImageRequest");
+            SendImage(request.AccessToken, request.Appliance, request.ImageUrl);
+            return new Control.SendImageConfirmation { };
+        }
     }
 
     public abstract class SmartHomeHandler : AbstractSmartHomeHandler
@@ -447,6 +469,17 @@ namespace Alexa.ConnectedHome
 
         //Health Check Messages
         protected override bool HealthCheck(long initiationTimestamp, out string description)
+        {
+            throw new NotImplementedException();
+        }
+
+        //Send Message
+        protected override void SendText(string accessToken, Appliance appliance, string text)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SendImage(string accessToken, Appliance appliance, string imageUrl)
         {
             throw new NotImplementedException();
         }

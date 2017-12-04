@@ -314,5 +314,29 @@ namespace Alexa.ConnectedHome
             description = response.Description;
             return response.IsHealthy;
         }
+
+        //Send Message
+        public void SendText(string accessToken, Appliance appliance, string text)
+        {
+            LogInfo($"Action: SendText(imageUrl:\"{text}\")");
+            var request = new Control.SendTextRequest
+            {
+                AccessToken = accessToken,
+                Appliance = appliance,
+                Text = text,
+            };
+            var response = ProgressMessage(request) as Control.SendTextConfirmation;
+        }
+        public void SendImage(string accessToken, Appliance appliance, string imageUrl)
+        {
+            LogInfo($"Action: SendImage(imageUrl:\"{imageUrl}\")");
+            var request = new Control.SendImageRequest
+            {
+                AccessToken = accessToken,
+                Appliance = appliance,
+                ImageUrl = imageUrl,
+            };
+            var response = ProgressMessage(request) as Control.SendImageConfirmation;
+        }
     }
 }

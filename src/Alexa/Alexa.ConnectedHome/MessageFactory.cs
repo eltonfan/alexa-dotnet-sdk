@@ -104,6 +104,12 @@ namespace Alexa.ConnectedHome
             AddPayloadType(typeof(Control.UnsupportedOperationError));
             AddPayloadType(typeof(Control.UnsupportedTargetSettingError));
             AddPayloadType(typeof(Control.UnexpectedInformationReceivedError));
+
+            //Send Message
+            AddPayloadType(typeof(Control.SendTextRequest));
+            AddPayloadType(typeof(Control.SendTextConfirmation));
+            AddPayloadType(typeof(Control.SendImageRequest));
+            AddPayloadType(typeof(Control.SendImageConfirmation));
         }
 
         public static Message Parse(string jsonString)
